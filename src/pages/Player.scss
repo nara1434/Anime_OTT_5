@@ -1,0 +1,168 @@
+// .video-container {
+//     position: relative;
+//     max-width: 1000px;
+//     margin: 2rem auto;
+//     border-radius: 20px;
+//     overflow: hidden;
+//     background-color: #000;
+//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+//   }
+   
+//   .video-element {
+//     width: 100%;
+//     height: auto;
+//     display: block;
+//     border-radius: 0;
+//   }
+   
+//   .subtitle {
+//     position: absolute;
+//     bottom: 60px;
+//     width: 100%;
+//     text-align: center;
+//     font-size: 1.5rem;
+//     font-family: "Dancing Script", cursive;
+//     text-shadow: 1px 1px 4px #000;
+//     padding: 0 20px;
+//   }
+   
+//   .warning-overlay {
+//     position: absolute;
+//     top: 0;
+//     width: 100%;
+//     height: 100%;
+//     background: rgba(255, 228, 225, 0.95);
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     z-index: 10;
+//     font-family: "Georgia", serif;
+//   }
+   
+//   .warning-text {
+//     font-size: 1.8rem;
+//     color: #d81b60;
+//     margin-bottom: 1rem;
+//   }
+   
+//   .warning-overlay button {
+//     background: #d81b60;
+//     color: white;
+//     padding: 0.7rem 1.2rem;
+//     border: none;
+//     border-radius: 8px;
+//     font-weight: bold;
+//     cursor: pointer;
+//   }
+   
+//   .vignette::before {
+//     content: "";
+//     position: absolute;
+//     inset: 0;
+//     background: radial-gradient(circle, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.5) 100%);
+//     z-index: 2;
+//     pointer-events: none;
+//   }
+   
+//   .blur video {
+//     filter: blur(2px);
+//   }
+   
+//   .pulse-visualizer {
+//     position: absolute;
+//     bottom: 0;
+//     width: 100%;
+//     height: 8px;
+//     background: linear-gradient(90deg, #ff80ab, #f50057, #ff80ab);
+//     animation: pulse 1.2s ease-in-out infinite;
+//     opacity: 0.8;
+//   }
+   
+//   @keyframes pulse {
+//     0% {
+//       transform: scaleX(1);
+//       opacity: 0.6;
+//     }
+//     50% {
+//       transform: scaleX(1.05);
+//       opacity: 1;
+//     }
+//     100% {
+//       transform: scaleX(1);
+//       opacity: 0.6;
+//     }
+//   }
+
+
+// .video-player-page {
+//     padding: 20px;
+//     background: radial-gradient(#121212, #000);
+//     min-height: 100vh;
+//     color: white;
+//   }
+  
+//   .video-container {
+//     max-width: 900px;
+//     margin: 0 auto;
+//     position: relative;
+//   }
+  
+//   video {
+//     width: 100%;
+//     border-radius: 12px;
+//     box-shadow: 0 0 40px rgba(255, 192, 203, 0.2);
+//     backdrop-filter: blur(6px);
+//     transition: box-shadow 0.3s ease;
+//   }
+  
+//   .controls {
+//     margin-top: 15px;
+//     display: flex;
+//     flex-wrap: wrap;
+//     gap: 15px;
+//     justify-content: center;
+//   }
+  
+//   .controls label {
+//     display: flex;
+//     flex-direction: column;
+//     font-size: 14px;
+//     color: #fff;
+//   }
+  
+//   video::cue {
+//     font-family: 'Dancing Script', cursive;
+//     font-size: 20px;
+//     text-shadow: 1px 1px 2px #000;
+//   }
+  
+//   .love video::cue {
+//     color: #ff69b4;
+//   }
+  
+//   .anger video::cue {
+//     color: red;
+//   }
+  
+//   .sadness video::cue {
+//     color: #4aa3df;
+//   }
+  
+//   /* Optional vignette for romantic mood */
+//   .love video {
+//     box-shadow: 0 0 60px rgba(255, 182, 193, 0.6);
+//   }
+  
+//   /* Pulse effect */
+//   @keyframes pulse {
+//     0% { box-shadow: 0 0 10px rgba(255, 182, 193, 0.6); }
+//     50% { box-shadow: 0 0 20px rgba(255, 182, 193, 1); }
+//     100% { box-shadow: 0 0 10px rgba(255, 182, 193, 0.6); }
+//   }
+  
+//   .love video {
+//     animation: pulse 2s infinite;
+//   }
+  
+   

@@ -1,0 +1,37 @@
+.frame-page {
+    text-align: center;
+    padding: 2rem;
+    min-height: 100vh;
+  
+    .poster {
+      width: 300px;
+      border-radius: 12px;
+      margin: 1rem;
+    }
+  
+    .buttons {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+  
+      button {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+      }
+  
+      .watch {
+        background: #ff6b81;
+        color: white;
+      }
+  
+      .wishlist {
+        background: #eee;
+        color: #333;
+      }
+    }
+  }
+  
