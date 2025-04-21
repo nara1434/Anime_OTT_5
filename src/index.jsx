@@ -2,12 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { BrowserRouter } from 'react-router-dom';
+//import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+
 import reportWebVitals from './reportWebVitals';
 import { WishlistProvider } from './Wishlist/WishlistContext';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+
+  </React.StrictMode>
+);
+
+
+
     <WishlistProvider>
     <App />
     </WishlistProvider>
@@ -18,3 +36,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

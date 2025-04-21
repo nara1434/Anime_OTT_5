@@ -1,27 +1,3 @@
-// // App.jsx or App.js
-// import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Login from './pages/Login';
-// import Signup from './pages/SignUp';
-// import Subscription from './pages/Subscription';
-// import Payment from './pages/Payment';
-// import Categories from './pages/Categories';
-
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//       <Route path="/" element={<Login />} />
-//       <Route path="/signup" element={<Signup />} />
-//         <Route path="/subscription" element={<Subscription />} />
-//         <Route path="/categories" element={<Categories />} />
-//         <Route path="/payment" element={<Payment />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
 
 // import React from 'react';
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -57,6 +33,7 @@
 
 
 import React from 'react';
+import './App.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './Context/AuthContext'; // Import AuthContext
 import Login from './pages/Login';
@@ -66,6 +43,9 @@ import Payment from './pages/Payment';
 import Categories from './pages/Categories';
 import WishlistPage from './Wishlist/Wishlistpage';
 import FramePage from './Wishlist/FramePage';
+import RomanticThemeHome from './components/RomanticThemeHome';
+import ThrillerThemeHome from './components/ThrillerThemeHome';
+import PageNotFound from './pages/PageNotFound';
 
 const ProtectedRoute = ({ element }) => {
   const { isAuthenticated } = useAuth();
@@ -85,10 +65,15 @@ function App() {
           <Route path="/wishlistpage"  element={<WishlistPage />} />
           <Route path="/framepage" element={<FramePage />} />
           <Route path="/framepage/:title" element={<FramePage />} />
+           <Route path='/' element={<RomanticThemeHome/>}/>
+        <Route path='romanticThemeHome' element={<RomanticThemeHome/>}/>
+        <Route path='thrillerThemeHome' element={<ThrillerThemeHome/>}/>
+           <Route path='*' element={<PageNotFound/>}/>
 
         </Routes>
       </Router>
     </AuthProvider>
+
   );
 }
 
