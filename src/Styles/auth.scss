@@ -1,0 +1,152 @@
+/* Auth.css */
+
+:root {
+  --romantic-bg: #ffe6eb;
+  --romantic-accent: #ff8fab;
+  --romantic-text: #4b2e39;
+
+  --thriller-bg: #0d0d0d;
+  --thriller-accent: #d90429;
+  --thriller-text: #f0f0f0;
+
+  --font: 'Poppins', sans-serif;
+  --radius: 1rem;
+  --transition: all 0.3s ease;
+}
+
+.auth-wrapper {
+  display: flex;
+  min-height: 100vh;
+  font-family: var(--font);
+}
+
+/* LEFT - Logo Section */
+.auth-left {
+  flex: 1;
+  background: linear-gradient(to bottom right, var(--romantic-accent), var(--romantic-bg));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.auth-left img {
+  max-width: 250px;
+  width: 100%;
+}
+
+/* RIGHT - Form Section */
+.auth-right {
+  flex: 1;
+  background: white;
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.auth-right.thriller {
+  background: var(--thriller-bg);
+  color: var(--thriller-text);
+}
+
+.auth-title {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+.auth-form input:focus {
+  border-color: var(--romantic-accent);
+}
+
+.thriller .auth-form input:focus {
+  border-color: var(--thriller-accent);
+}
+
+.auth-error {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.auth-form button {
+  width: 100%;
+  background-color: var(--romantic-accent);
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.thriller .auth-form button {
+  background-color: var(--thriller-accent);
+}
+
+.auth-form button:hover {
+  opacity: 0.95;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.social-login img {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.social-login img:hover {
+  transform: scale(1.1);
+}
+
+.toggle-auth {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.toggle-auth span {
+  color: var(--romantic-accent);
+  cursor: pointer;
+}
+
+.thriller .toggle-auth span {
+  color: var(--thriller-accent);
+}
+
+@media (max-width: 768px) {
+  .auth-wrapper {
+    flex-direction: column;
+  }
+
+  .auth-left,
+  .auth-right {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .auth-left {
+    justify-content: center;
+  }
+}
