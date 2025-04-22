@@ -123,6 +123,7 @@
 import React, { useState } from 'react';
 import './Categories.scss';
 import { Link } from 'react-router-dom';
+import NavBar from '../Components/NavBar';
 
 const genres = [
   {
@@ -211,6 +212,9 @@ const GenresPage = () => {
     : selectedGenre.anime;
 
   return (
+    <div>
+        <NavBar />
+   
     <div className="genres-page" style={{ backgroundColor: selectedGenre.backgroundColor }}>
       <h1 className="page-title" style={{ color: selectedGenre.textColor }}>
         Explore Anime Genres
@@ -266,6 +270,7 @@ const GenresPage = () => {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 };

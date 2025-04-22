@@ -43,9 +43,10 @@ import Payment from './pages/Payment';
 import Categories from './pages/Categories';
 import WishlistPage from './Wishlist/Wishlistpage';
 import FramePage from './Wishlist/FramePage';
-import RomanticThemeHome from './components/RomanticThemeHome';
-import ThrillerThemeHome from './components/ThrillerThemeHome';
+import RomanticThemeHome from './Components/RomanticThemeHome';
+import ThrillerThemeHome from './Components/ThrillerThemeHome';
 import PageNotFound from './pages/PageNotFound';
+import Player from './pages/Player';
 
 const ProtectedRoute = ({ element }) => {
   const { isAuthenticated } = useAuth();
@@ -65,10 +66,10 @@ function App() {
           <Route path="/wishlistpage"  element={<WishlistPage />} />
           <Route path="/framepage" element={<FramePage />} />
           <Route path="/framepage/:title" element={<FramePage />} />
-           <Route path='/' element={<RomanticThemeHome/>}/>
-        <Route path='romanticThemeHome' element={<RomanticThemeHome/>}/>
-        <Route path='thrillerThemeHome' element={<ThrillerThemeHome/>}/>
-           <Route path='*' element={<PageNotFound/>}/>
+            <Route path="/romanticThemeHome" element={<RomanticThemeHome/>}/>
+            <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/>
+            <Route path="/player" element={<Player/>}/>
+              <Route path='*' element={<PageNotFound/>}/>
 
         </Routes>
       </Router>

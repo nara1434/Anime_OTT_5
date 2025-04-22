@@ -1,260 +1,177 @@
-// import React, { useState, useEffect } from "react";
-// import "./Player.scss";
- 
-// const Player = () => {
-//   const [showWarning, setShowWarning] = useState(true);
-//   const [isIntimateScene, setIsIntimateScene] = useState(false);
-//   const [currentEmotion, setCurrentEmotion] = useState("love");
- 
-//   useEffect(() => {
-//     // Simulate mood changes for demo
-//     const emotionTimer = setInterval(() => {
-//       const emotions = ["love", "anger", "sadness"];
-//       const random = emotions[Math.floor(Math.random() * emotions.length)];
-//       setCurrentEmotion(random);
-//       setIsIntimateScene(random === "love");
-//     }, 12000);
- 
-//     return () => clearInterval(emotionTimer);
-//   }, []);
- 
-//   const getSubtitleColor = () => {
-//     switch (currentEmotion) {
-//       case "love":
-//         return "#ff69b4"; // Pink
-//       case "anger":
-//         return "#ff1e1e"; // Red
-//       case "sadness":
-//         return "#1e88e5"; // Blue
-//       default:
-//         return "#ffffff";
-//     }
-//   };
- 
-//   return (
-//     <div className={`video-container ${isIntimateScene ? "vignette blur" : ""}`}>
-//       {showWarning && (
-//         <div className="warning-overlay">
-//           <p className="warning-text">You're entering a romantic episode</p>
-//           <button onClick={() => setShowWarning(false)}>Continue</button>
-//         </div>
-//       )}
- 
-//       <video controls className="video-element" autoPlay muted>
-//         <source src="/assets/THE BOSS BABY _ Teaser Trailer.mp4" type="video/mp4" />
-//         Your browser does not support the video tag.
-//       </video>
- 
-//       <div className="subtitle" style={{ color: getSubtitleColor() }}>
-//         “I never stopped loving you… even when it hurt.”
-//       </div>
- 
-//       {isIntimateScene && <div className="pulse-visualizer" />}
-//     </div>
-//   );
-// };
- 
-// export default Player;
-
-// import React, { useRef, useState } from 'react';
-// import './Player.scss';
-
-// const subtitles = {
-//   love: '/assets/subs/episode1-love.vtt',
-//   anger: '/assets/subs/episode1-anger.vtt',
-//   sadness: '/assets/subs/episode1-sadness.vtt',
-// };
-
-// const Player = () => {
-//   const videoRef = useRef();
-//   const [selectedSubtitle, setSelectedSubtitle] = useState('love');
-//   const [playbackRate, setPlaybackRate] = useState(1);
-//   const [volume, setVolume] = useState(1);
-//   const [quality, setQuality] = useState('720p');
-
-//   const handleSubtitleChange = (e) => {
-//     setSelectedSubtitle(e.target.value);
-//     videoRef.current.load();
-//     videoRef.current.play();
-//   };
-
-//   const handleRateChange = (e) => {
-//     const rate = parseFloat(e.target.value);
-//     setPlaybackRate(rate);
-//     videoRef.current.playbackRate = rate;
-//   };
-
-//   const handleVolumeChange = (e) => {
-//     const vol = parseFloat(e.target.value);
-//     setVolume(vol);
-//     videoRef.current.volume = vol;
-//   };
-
-//   const handleQualityChange = (e) => {
-//     setQuality(e.target.value);
-//     // Simulate different quality with different sources
-//     videoRef.current.load();
-//     videoRef.current.play();
-//   };
-
-//   const videoSources = {
-//     '720p': '/assets/videos/episode1-720p.mp4',
-//     '1080p': '/assets/videos/episode1-1080p.mp4',
-//   };
-
-//   return (
-//     <div className={`video-player-page ${selectedSubtitle}`}>
-//       <div className="video-container">
-//         <video
-//           ref={videoRef}
-//           controls
-//           preload="auto"
-//           poster="/assets/posters/romantic-scene.jpg"
-//         >
-//           <source src={videoSources[quality]} type="video/mp4" />
-//           <track
-//             label="Subtitles"
-//             kind="subtitles"
-//             srcLang="en"
-//             src={subtitles[selectedSubtitle]}
-//             default
-//           />
-//           Your browser does not support the video tag.
-//         </video>
-
-//         <div className="controls">
-//           <label>
-//             🎭 Subtitles:
-//             <select value={selectedSubtitle} onChange={handleSubtitleChange}>
-//               <option value="love">💖 Love</option>
-//               <option value="anger">💢 Anger</option>
-//               <option value="sadness">💙 Sadness</option>
-//             </select>
-//           </label>
-
-//           <label>
-//             🔊 Volume:
-//             <input
-//               type="range"
-//               min="0"
-//               max="1"
-//               step="0.01"
-//               value={volume}
-//               onChange={handleVolumeChange}
-//             />
-//           </label>
-
-//           <label>
-//             ⏩ Speed:
-//             <select value={playbackRate} onChange={handleRateChange}>
-//               <option value="0.5">0.5x</option>
-//               <option value="1">1x</option>
-//               <option value="1.5">1.5x</option>
-//               <option value="2">2x</option>
-//             </select>
-//           </label>
-
-//           <label>
-//             📺 Quality:
-//             <select value={quality} onChange={handleQualityChange}>
-//               <option value="720p">720p</option>
-//               <option value="1080p">1080p</option>
-//             </select>
-//           </label>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Player;
-
- 
 import React, { useRef, useState, useEffect } from 'react';
-
-const subtitles = [
-  {
-    start: 1,
-    end: 4,
-    text: '“I never believed in love at first sight...”',
-    emotion: 'love',
-  },
-  {
-    start: 5,
-    end: 8,
-    text: '“...until I saw you standing in the rain.”',
-    emotion: 'love',
-  },
-  {
-    start: 10,
-    end: 13,
-    text: '“But why didn’t you tell me the truth?”',
-    emotion: 'sad',
-  },
-  {
-    start: 15,
-    end: 18,
-    text: '“Because I was afraid… afraid of losing you.”',
-    emotion: 'anger',
-  },
-];
-
-const emotionColors = {
-  love: '#ff69b4',
-  sad: '#0000ff',
-  anger: '#ff0000',
-};
+import './Player.scss';
 
 const Player = () => {
   const videoRef = useRef(null);
-  const [currentSubtitle, setCurrentSubtitle] = useState('');
+  const [volume, setVolume] = useState(1);
+  const [brightness, setBrightness] = useState(100);
+  const [subtitlesEnabled, setSubtitlesEnabled] = useState(true);
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
+  const [videoQuality, setVideoQuality] = useState('1080p');
+  const [showWarning, setShowWarning] = useState(null);
+  const [hasVoted, setHasVoted] = useState(false);
+  const [showPoll, setShowPoll] = useState(false);
+  const [reactionEmoji, setReactionEmoji] = useState(null);
+  const [sceneHovered, setSceneHovered] = useState(null);
+  const [sceneThumbnails, setSceneThumbnails] = useState([]);
+  const [currentScene, setCurrentScene] = useState(null);
+  const [showThumbnail, setShowThumbnail] = useState(true);
+
+  const warnings = [
+    { time: 5, message: '⚠️ Trigger Warning: Emotional Abuse', type: 'emotional' },
+    { time: 15, message: '⚠️ Trigger Warning: Violence', type: 'intense' },
+  ];
+
+  const scenes = [
+    { time: 10, title: "The Kiss", thumbnail: "/assets/images/action1.png" },
+    { time: 30, title: "The Escape", thumbnail: "/assets/images/action2.png" },
+    { time: 60, title: "The Confession", thumbnail: "/assets/images/anime.png" },
+  ];
 
   useEffect(() => {
-    const video = videoRef.current;
-
-    const checkSubtitles = () => {
-      const currentTime = video.currentTime;
-      const activeSubtitle = subtitles.find(
-        (s) => currentTime >= s.start && currentTime <= s.end
-      );
-      if (activeSubtitle) {
-        setCurrentSubtitle(activeSubtitle);
-      } else {
-        setCurrentSubtitle('');
-      }
-    };
-
-    video.addEventListener('timeupdate', checkSubtitles);
-    return () => video.removeEventListener('timeupdate', checkSubtitles);
+    setSceneThumbnails(scenes);
   }, []);
 
-  return (
-    <div style={{ position: 'relative', width: '80%', margin: 'auto' }}>
-      <video
-        ref={videoRef}
-        controls
-        width="100%"
-        style={{ borderRadius: '16px', background: '#000' }}
-      >
-        <source src="/assets/THE BOSS BABY _ Teaser Trailer.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+  const handleVolumeChange = (e) => {
+    let vol = parseFloat(e.target.value);
+    if (vol < 0) vol = 0;
+    if (vol > 1) vol = 1;
+    setVolume(vol);
+    videoRef.current.volume = vol;
+  };
 
-      {currentSubtitle && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '50px',
-            width: '100%',
-            textAlign: 'center',
-            fontSize: '1.4rem',
-            color: emotionColors[currentSubtitle.emotion],
-            fontStyle: 'italic',
-            fontFamily: 'Dancing Script, cursive',
-            textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
-          }}
+  const handleTimeUpdate = () => {
+    const currentTime = Math.floor(videoRef.current.currentTime);
+
+    const warning = warnings.find(w => w.time === currentTime);
+    if (warning && (!showWarning || showWarning.time !== warning.time)) {
+      setShowWarning({ ...warning, time: currentTime });
+      setTimeout(() => setShowWarning(null), 5000);
+    }
+
+    const scene = scenes.find(scene => scene.time === currentTime);
+    if (scene && currentScene !== scene.title) {
+      setCurrentScene(scene.title);
+    }
+  };
+
+  const handleVote = (vote) => {
+    setHasVoted(true);
+    setReactionEmoji(vote === 'ship' ? '💘' : '💔');
+    setTimeout(() => {
+      setReactionEmoji(null);
+      setShowPoll(false);
+    }, 1500);
+  };
+
+  const changePlaybackSpeed = (speed) => {
+    setPlaybackSpeed(speed);
+    videoRef.current.playbackRate = speed;
+  };
+
+  const changeVideoQuality = (quality) => {
+    setVideoQuality(quality);
+    const qualityMap = {
+      '1080p': '/assets/yt1z.net - Justin Bieber - Baby ft. Ludacris (1080p).mp4',
+      '720p': '/assets/yt1z.net - Justin Bieber - Baby ft. Ludacris (720p).mp4',
+      '480p': '/assets/yt1z.net - Justin Bieber - Baby ft. Ludacris (480p).mp4'
+    };
+    videoRef.current.src = qualityMap[quality];
+    videoRef.current.load();
+    videoRef.current.play();
+  };
+
+  const toggleSubtitles = () => {
+    setSubtitlesEnabled(!subtitlesEnabled);
+  };
+
+  const showPollAtEnd = () => {
+    setShowPoll(true);
+  };
+
+  return (
+    <div className="emotional-player-container">
+      <div className="video-wrapper" style={{ filter: `brightness(${brightness}%)` }}>
+        {showThumbnail && (
+          <div className="thumbnail-overlay">
+            <p>{showThumbnail ? "Mature themes ahead" : "You’re entering a romantic episode"}</p>
+            <button onClick={() => setShowThumbnail(false)}>Start Watching</button>
+          </div>
+        )}
+
+        {showWarning && (
+          <div className={`trigger-warning ${showWarning.type}`}>
+            {showWarning.message}
+          </div>
+        )}
+
+        <video
+          ref={videoRef}
+          width="100%"
+          height="auto"
+          controls
+          crossOrigin="anonymous"
+          className="emotional-video"
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={showPollAtEnd}
         >
-          {currentSubtitle.text}
+          <source
+            src="/assets/yt1z.net - Justin Bieber - Baby ft. Ludacris (1080p).mp4"
+            type="video/mp4"
+          />
+          {subtitlesEnabled && (
+            <track
+              label="English"
+              kind="subtitles"
+              srcLang="en"
+              src="/assets/bossbaby_subs.vtt"
+              default
+            />
+          )}
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div className="scene-thumbnails">
+        {sceneThumbnails.map((scene, index) => (
+          <div
+            key={index}
+            className="scene-thumbnail"
+            onClick={() => videoRef.current.currentTime = scene.time}
+            onMouseEnter={() => setSceneHovered(scene.title)}
+            onMouseLeave={() => setSceneHovered(null)}
+          >
+            <img src={scene.thumbnail} alt={scene.title} />
+            {sceneHovered === scene.title && <div className="scene-tooltip">{scene.title}</div>}
+          </div>
+        ))}
+      </div>
+
+      <div className="controls">
+        <label>
+          Speed: <span>⚡</span>
+          <select value={playbackSpeed} onChange={(e) => changePlaybackSpeed(parseFloat(e.target.value))}>
+            <option value={1}>Normal</option>
+            <option value={1.5}>1.5x</option>
+            <option value={2}>2x</option>
+          </select>
+        </label>
+
+        <label>
+          Quality: <span>📺</span>
+          <select value={videoQuality} onChange={(e) => changeVideoQuality(e.target.value)}>
+            <option value="1080p">1080p</option>
+            <option value="720p">720p</option>
+            <option value="480p">480p</option>
+          </select>
+        </label>
+      </div>
+
+      {showPoll && !hasVoted && (
+        <div className="poll">
+          <p>Did you enjoy the video?</p>
+          <button onClick={() => handleVote('ship')}>💘</button>
+          <button onClick={() => handleVote('breakup')}>💔</button>
         </div>
       )}
     </div>

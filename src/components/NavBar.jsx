@@ -82,7 +82,7 @@ const NavBar = () => {
   };
 
   // Navigation handlers
-  const handleHomeClick = () => nav("/");
+  const handleHomeClick = () => nav("/home");
   const handleRomanticClick = () => nav("/romanticThemeHome");
   const handleThrillerClick = () => nav("/thrillerThemeHome");
   const handleSubscriptionClick = () => nav("/subscription");
