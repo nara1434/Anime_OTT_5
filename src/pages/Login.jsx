@@ -21,7 +21,7 @@ const Login = () => {
   const handleLogin = () => {
     if (validateForm()) {
       alert(`Welcome back!`);
-      window.location.href = '/home'; // Redirect after login
+      window.location.href = '/romanticThemeHome'; // Redirect after login
     }
   };
 

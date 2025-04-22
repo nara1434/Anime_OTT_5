@@ -119,12 +119,11 @@
 
 // export default GenresPage;
 
-
 import React, { useState } from 'react';
 import './Categories.scss';
 import { Link } from 'react-router-dom';
 import NavBar from '../Components/NavBar';
-
+ 
 const genres = [
   {
     id: 1,
@@ -202,24 +201,23 @@ const genres = [
     textColor: '#FF4F58',
   }
 ];
-
+ 
 const GenresPage = () => {
   const [selectedGenre, setSelectedGenre] = useState(genres[0]);
   const [selectedFilter, setSelectedFilter] = useState('');
-
+ 
   const filteredAnime = selectedFilter
     ? selectedGenre.anime.filter(anime => anime.tags.includes(selectedFilter))
     : selectedGenre.anime;
-
+ 
   return (
     <div>
-        <NavBar />
-   
-    <div className="genres-page" style={{ backgroundColor: selectedGenre.backgroundColor }}>
+      <NavBar/>
+      <div className="genres-page" style={{ backgroundColor: selectedGenre.backgroundColor ,marginTop:"67px"}}>
       <h1 className="page-title" style={{ color: selectedGenre.textColor }}>
         Explore Anime Genres
       </h1>
-
+ 
       <div className="genres-tabs">
         {genres.map((genre) => (
           <button
@@ -238,7 +236,7 @@ const GenresPage = () => {
           </button>
         ))}
       </div>
-
+ 
       <div className="genre-description" style={{ color: selectedGenre.textColor }}>
         <h2>{selectedGenre.name}</h2>
         <p>{selectedGenre.description}</p>
@@ -256,7 +254,7 @@ const GenresPage = () => {
           ))}
         </div>
       </div>
-
+ 
       <div className="anime-grid">
         <h3>Featured Anime in {selectedGenre.name}</h3>
         <div className="grid-container">
@@ -274,5 +272,7 @@ const GenresPage = () => {
     </div>
   );
 };
-
+ 
 export default GenresPage;
+ 
+ 
