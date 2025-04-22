@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './WishlistPage.scss'; // 👈 Import CSS
+import NavBar from '../components/NavBar';
 
 const WishlistPage = () => {
   const navigate = useNavigate();
@@ -25,7 +26,9 @@ const WishlistPage = () => {
   };
 
   return (
-    <div className="wishlist-container">
+     <div>
+      <NavBar/>
+      <div className="wishlist-container" style={{marginTop:"67px"}}>
       <h1>Your Wishlist ❤️</h1>
       <div className="wishlist-grid">
         {wishlistItems.map((item) => (
@@ -39,6 +42,8 @@ const WishlistPage = () => {
         Go Back to Frame
       </button>
     </div>
+     </div>
+
   );
 };
 

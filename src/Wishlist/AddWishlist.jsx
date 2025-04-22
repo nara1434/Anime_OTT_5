@@ -1,6 +1,7 @@
 // src/components/AnimeCard.jsx
 import React from 'react';
 import { useWishlist } from '../context/WishlistContext';
+import NavBar from '../components/NavBar';
 
 const AnimeCard = ({ anime }) => {
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();

@@ -7,10 +7,10 @@ import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import Button from '@mui/joy/Button';
 import { FaPlay } from "react-icons/fa";
-import { FaGreaterThan } from "react-icons/fa";
 import { useState,useEffect } from 'react';
 import Footer from './Footer';
 import { FaHeart } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 const slidesData = [
   {
     id: 1,
@@ -145,6 +145,7 @@ const actionThrillers = [
 ];
 
 const ThrillerThemeHome = () => {
+  let nav = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -196,8 +197,8 @@ const ThrillerThemeHome = () => {
                       <h5 className="text-white">{slide.title}</h5>
                       <p className="text-white">{slide.description}</p>
                       <div className='d-flex gap-3 justify-content-center text-center mt-3'>
-                        <button className='btn btn-danger px-4 py-2'>Watch Now <FaPlay className='ms-1'/></button>
-                        <button className='btn btn-danger px-4 py-2'>WishList <FaHeart  className='ms-1'/></button>
+                        <button className='btn btn-danger px-4 py-2' onClick={()=>nav('/player')}>Watch Now <FaPlay className='ms-1'/></button>
+                        <button className='btn btn-danger px-4 py-2'onClick={()=>nav('/wishlistpage')}>WishList <FaHeart  className='ms-1'/></button>
                       </div>
                     </div>
                   </div>
@@ -238,7 +239,7 @@ const ThrillerThemeHome = () => {
               >
                 CrimeThrillers
               </h3>
-              <FaGreaterThan size={20} />
+              {/* <FaGreaterThan size={20} /> */}
             </div>
             <div
               className="hide-scrollbar-lovestories"
@@ -295,7 +296,7 @@ const ThrillerThemeHome = () => {
                         <h5 style={{ color: '#fff', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                           {video.title}
                         </h5>
-                        <Button variant="solid" color="primary" size="sm">
+                        <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/player')}>
                           Play Now <FaPlay className="ms-2 text-danger" />
                         </Button>
                       </Box>
@@ -320,7 +321,7 @@ const ThrillerThemeHome = () => {
     >
       Psychological Thriller Movies
     </h3>
-    <FaGreaterThan size={20} />
+    {/* <FaGreaterThan size={20} /> */}
   </div>
   <div
     className="hide-scrollbar-heartfeltmovies"
@@ -378,7 +379,7 @@ const ThrillerThemeHome = () => {
               <h5 style={{ color: '#fff', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                 {movie.title}
               </h5>
-              <Button variant="solid" color="primary" size="sm">
+              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/player')}>
                 Play Now <FaPlay className="ms-2 text-danger" />
               </Button>
             </Box>
@@ -403,7 +404,7 @@ const ThrillerThemeHome = () => {
     >
       Mystery Movies
     </h3>
-    <FaGreaterThan size={20} />
+    {/* <FaGreaterThan size={20} /> */}
   </div>
 
   <div
@@ -462,7 +463,7 @@ const ThrillerThemeHome = () => {
               <h5 style={{ color: '#fff', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                 {movie.title}
               </h5>
-              <Button variant="solid" color="primary" size="sm">
+              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/player')}>
                 Play Now <FaPlay className="ms-2 text-danger" />
               </Button>
             </Box>
@@ -487,7 +488,7 @@ const ThrillerThemeHome = () => {
     >
       Action Thriller's
     </h3>
-    <FaGreaterThan size={20} />
+    {/* <FaGreaterThan size={20} /> */}
   </div>
   <div
     className="hide-scrollbar-romanticdramas"
@@ -545,7 +546,7 @@ const ThrillerThemeHome = () => {
               <h5 style={{ color: '#fff', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                 {drama.title}
               </h5>
-              <Button variant="solid" color="primary" size="sm">
+              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/player')}>
                 Play Now <FaPlay className="ms-2 text-danger" />
               </Button>
             </Box>

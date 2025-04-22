@@ -64,8 +64,8 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/categories"  element ={<Categories />}  />
           <Route path="/payment"  element={<Payment />} />
@@ -74,6 +74,7 @@ function App() {
           <Route path="/wishlistpage"  element={<WishlistPage />} />
           <Route path="/framepage" element={<FramePage />} />
           <Route path="/framepage/:title" element={<FramePage />} />
+
             <Route path="/profilepage" element={<ProfilePage/>}/>
             <Route path="/editprofile" element={<EditProfile/>}/>
             <Route path="/addprofile" element={<AddProfile/>}/>
@@ -85,6 +86,13 @@ function App() {
 
 
               <Route path='*' element={<PageNotFound/>}/>
+         <Route path="/romanticThemeHome" element={<RomanticThemeHome/>}/>
+          <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/>
+
+
+
+          <Route path='*' element={<PageNotFound/>}/>
+
 
         </Routes>
       </Router>
