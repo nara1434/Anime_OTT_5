@@ -126,3 +126,248 @@
     align-items: center;
   }
 }
+// .subscription-container {
+//     padding: 4rem 2rem;
+//     background: linear-gradient(to right, #fff0f5, #e1f5fe);
+//     min-height: 100vh;
+//     font-family: 'Segoe UI', sans-serif;
+//     text-align: center;
+//   }
+  
+//   .subscription-title {
+//     color: #d81b60;
+//     font-size: 3.2rem;
+//     margin-bottom: 3rem;
+//     text-shadow: 2px 2px #f8bbd0;
+//   }
+  
+//   .plans {
+//     display: flex;
+//     justify-content: center;
+//     align-items: stretch;
+//     gap: 2rem;
+//     flex-wrap: wrap;
+//     max-width: 1400px;
+//     margin: 0 auto;
+//   }
+  
+//   .plan {
+//     flex: 1 1 30%;
+//     background: #fff;
+//     border-radius: 25px;
+//     padding: 2rem;
+//     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+//     transition: all 0.4s ease;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     min-height: 500px;
+//     max-width: 370px;
+//     text-align: left;
+//     border-top: 8px solid transparent;
+//   }
+  
+//   .plan:hover {
+//     transform: translateY(-8px);
+//     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+//   }
+  
+//   .plan h2 {
+//     font-size: 2rem;
+//     color: #d81b60;
+//     margin-bottom: 0.6rem;
+//   }
+  
+//   .plan p {
+//     font-size: 1.4rem;
+//     color: #111;
+//     font-weight: bold;
+//     margin-bottom: 1rem;
+//   }
+  
+//   .plan ul {
+//     font-size: 1rem;
+//     line-height: 1.8;
+//     color: #444;
+//     padding-left: 1rem;
+//     list-style-type: none;
+//   }
+  
+//   .plan ul li::before {
+//     // content: "💗";
+//     margin-right: 0.5rem;
+//   }
+  
+//   .plan button {
+//     margin-top: auto;
+//     padding: 0.9rem 2.5rem;
+//     background: linear-gradient(to right, #ec407a, #d81b60);
+//     color: white;
+//     font-size: 1.1rem;
+//     border: none;
+//     border-radius: 14px;
+//     cursor: pointer;
+//     transition: background 0.3s ease;
+//   }
+  
+//   .plan button:hover {
+//     background: linear-gradient(to right, #c2185b, #880e4f);
+//   }
+  
+//   .plan.romantic {
+//     border-top-color: #f06292;
+//     background: #fff0f6;
+//   }
+  
+//   .plan.thriller {
+//     border-top-color: #d32f2f;
+//     background: #fbe9e7;
+//   }
+  
+//   .plan.full-access {
+//     border-top-color: #7e57c2;
+//     background: #f3e5f5;
+//   }
+  
+//   /* Responsive */
+//   @media (max-width: 1024px) {
+//     .plans {
+//       flex-direction: column;
+//       align-items: center;
+//     }
+  
+//     .plan {
+//       width: 90%;
+//       margin-bottom: 2rem;
+//     }
+//   }
+  
+.subscription-container {
+    padding: 4rem 4rem;
+    background: linear-gradient(to right, #fff0f5, #e1f5fe);
+    min-height: 80%;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+  }
+  
+  .subscription-title {
+    color: #d81b60;
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-shadow: 2px 2px #f8bbd0;
+  }
+  
+  .plans {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2rem;
+  }
+  
+  .plan {
+    flex: 1 1 20%; /* Reduced width of each plan */
+    background: #fff;
+    border-radius: 20px; 
+    padding: 1.2rem;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 350px; /* Reduced minimum height */
+    text-align: left;
+    border-top: 8px solid transparent;
+  }
+  
+  .plan:hover {
+    transform: translateY(-6px); /* Reduced hover effect */
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+  }
+  
+  .plan h2 {
+    font-size: 1.6rem;
+    color: #d81b60;
+    margin-bottom: 0.4rem;
+  }
+  
+  .plan p {
+    font-size: 1.1rem;
+    color: #111;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+  }
+  
+  .plan ul {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #444;
+    padding-left: 1rem;
+    list-style-type: none;
+  }
+  
+  .plan ul li::before {
+    margin-right: 0.5rem;
+  }
+  
+  .plan button {
+    margin-top: auto;
+    padding: 0.7rem 2rem;
+    background: linear-gradient(to right, #ec407a, #d81b60);
+    color: white;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .plan button:hover {
+    background: linear-gradient(to right, #c2185b, #880e4f);
+  }
+  
+  .plan.romantic {
+    border-top-color: #f06292;
+    background: #fff0f6;
+  }
+  
+  .plan.thriller {
+    border-top-color: #d32f2f;
+    background: #fbe9e7;
+  }
+  
+  .plan.full-access {
+    border-top-color: #7e57c2;
+    background: #f3e5f5;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .plans {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  
+    .plan {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .plan {
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+  
+    .plans {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
