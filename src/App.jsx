@@ -65,10 +65,9 @@ function App() {
           <Route path="/wishlistpage"  element={<WishlistPage />} />
           <Route path="/framepage" element={<FramePage />} />
           <Route path="/framepage/:title" element={<FramePage />} />
-           <Route path='/' element={<RomanticThemeHome/>}/>
-        <Route path='romanticThemeHome' element={<RomanticThemeHome/>}/>
-        <Route path='thrillerThemeHome' element={<ThrillerThemeHome/>}/>
-           <Route path='*' element={<PageNotFound/>}/>
+            <Route path="/romanticThemeHome" element={<RomanticThemeHome/>}/>
+            <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/>
+              <Route path='*' element={<PageNotFound/>}/>
 
         </Routes>
       </Router>
