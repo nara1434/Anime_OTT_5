@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
 import {
@@ -18,16 +18,21 @@ const Login = () => {
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+
   const handleInputChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   const validateForm = () => {
     const newErrors = {};
+
     if (!formData.email) {
       newErrors.email = "Email is required";
-    } else if (!/^[a-z0-9._%+-]+@gmail\.com$/.test(formData.email)) {
-      newErrors.email = "Only lowercase Gmail address allowed";
+    } else if (!/^[a-z][a-z0-9._%+-]*@gmail\.com$/.test(formData.email)) {
+      newErrors.email =
+        "Use lowercase Gmail starting with a letter (e.g. name123@gmail.com)";
     }
+
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (
@@ -36,14 +41,17 @@ const Login = () => {
       newErrors.password =
         "Password must be 8+ chars with 1 uppercase, 1 number & 1 special char";
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
   const handleLogin = () => {
     if (validateForm()) {
       navigate("/home");
     }
   };
+
   return (
     <div className="login-body">
       <div className="login-left">
@@ -52,12 +60,15 @@ const Login = () => {
           <p>Feel the romance. Embrace the thrill.</p>
         </div>
       </div>
+
       <div className="login-right">
         <button className="login-toggle border-0" onClick={() => navigate("/")}>
           Signup
         </button>
+
         <div className="login-container">
           <h2>Login to Your Account</h2>
+
           <input
             type="email"
             name="email"
@@ -66,6 +77,7 @@ const Login = () => {
             onChange={handleInputChange}
           />
           {errors.email && <p className="error">{errors.email}</p>}
+
           <div className="password-wrapper">
             <input
               type={showPassword ? "text" : "password"}
@@ -74,15 +86,19 @@ const Login = () => {
               value={formData.password}
               onChange={handleInputChange}
             />
-            <span
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="eye-icon"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
+            {formData.password && (
+              <span
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="eye-icon"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            )}
           </div>
           {errors.password && <p className="error">{errors.password}</p>}
+
           <button onClick={handleLogin}>Login</button>
+
           <p
             className="forgot-password text-secondary ms-auto"
             style={{ cursor: "pointer", marginTop: "10px", textAlign: "right" }}
@@ -90,6 +106,7 @@ const Login = () => {
           >
             Forgot Password?
           </p>
+
           <div className="social-icons">
             <span
               className="google"
@@ -132,4 +149,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

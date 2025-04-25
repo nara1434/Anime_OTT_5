@@ -1,57 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+
   const validateEmail = (value) => {
-    const regex = /^[a-z0-9._%+-]+@gmail\.com$/;
+    const regex = /^[a-z][a-z0-9._%+-]*@gmail\.com$/;
     return regex.test(value);
   };
+
   const handleResetPassword = (e) => {
     e.preventDefault();
     if (!email) {
-      setError("Please enter your email address");
+      toast.error(" Please enter your email address", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       return;
     }
     if (!validateEmail(email)) {
-      setError(
-        "Only lowercase Gmail addresses like example@gmail.com are allowed"
-      );
+      toast.error(" Only valid lowercase Gmail addresses like abcd123@gmail.com are allowed", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       return;
     }
-    setError("");
-    setMessage(
-      "If this email is registered, a password reset link has been sent."
-    );
+
+    toast.success("If this email is registered, a reset link has been sent.", {
+      position: "top-center",
+      autoClose: 3000,
+    });
     navigate("/otppage", { state: { email } });
   };
+
   const handleEmailChange = (e) => {
-    setEmail(e.target.value.toLowerCase()); 
-    setError("");
-    setMessage("");
+    setEmail(e.target.value.toLowerCase());
   };
+
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
+      setIsMobile(window.innerWidth <= 768);
     };
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   const containerStyle = {
     width: "100%",
     height: "100vh",
     display: "flex",
     fontFamily: "'Poppins', sans-serif",
   };
+
   const leftStyle = {
     flex: 1,
     backgroundImage: `linear-gradient(to right, rgba(255, 240, 246, 0.5), rgba(255, 240, 246, 0.85)), url('/assets/Categories/img7.jpg')`,
@@ -63,6 +68,7 @@ const ForgotPassword = () => {
     alignItems: "center",
     justifyContent: "center",
   };
+
   const overlayStyle = {
     position: "absolute",
     top: 0,
@@ -72,6 +78,7 @@ const ForgotPassword = () => {
     backgroundColor: "rgba(0,0,0,0.4)",
     zIndex: 0,
   };
+
   const rightStyle = {
     flex: 1,
     display: "flex",
@@ -79,6 +86,7 @@ const ForgotPassword = () => {
     justifyContent: "center",
     padding: isMobile ? "20px" : "0",
   };
+
   const boxStyle = {
     width: "90%",
     maxWidth: "400px",
@@ -90,11 +98,13 @@ const ForgotPassword = () => {
     flexDirection: "column",
     gap: "15px",
   };
+
   const headingStyle = {
     textAlign: "center",
     marginBottom: "20px",
     color: "#f06292",
   };
+
   const inputStyle = {
     padding: "12px",
     border: "1px solid #ccc",
@@ -102,16 +112,7 @@ const ForgotPassword = () => {
     fontSize: "16px",
     width: "100%",
   };
-  const errorStyle = {
-    color: "red",
-    fontSize: "12px",
-    marginTop: "5px",
-  };
-  const successStyle = {
-    color: "green",
-    fontSize: "12px",
-    marginTop: "5px",
-  };
+
   const buttonStyle = {
     padding: isMobile ? "8px" : "12px",
     background: "#f06292",
@@ -123,24 +124,27 @@ const ForgotPassword = () => {
     marginTop: "30px",
     width: "100%",
   };
+
   const backStyle = {
     marginTop: "15px",
     textAlign: "center",
     color: "#666",
     fontSize: "14px",
   };
+
   const linkStyle = {
     color: "#f06292",
     cursor: "pointer",
     textDecoration: "underline",
     marginLeft: "5px",
   };
+
   return (
     <div style={containerStyle}>
       <div style={leftStyle}>
         <div style={overlayStyle}></div>
         {!isMobile && (
-          <div className="branding">
+          <div className="branding" style={{ zIndex: 1, textAlign: "center", color: "white" }}>
             <h1>💕 Welcome to LoveThrill</h1>
             <p>Feel the romance. Embrace the thrill.</p>
           </div>
@@ -157,8 +161,6 @@ const ForgotPassword = () => {
               onChange={handleEmailChange}
               style={inputStyle}
             />
-            {error && <div style={errorStyle}>{error}</div>}
-            {message && <div style={successStyle}>{message}</div>}
             <button type="submit" style={buttonStyle}>
               Reset Password
             </button>
@@ -171,6 +173,7 @@ const ForgotPassword = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

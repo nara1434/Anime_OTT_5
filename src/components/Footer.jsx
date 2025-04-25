@@ -16,7 +16,7 @@ const Footer = () => {
                 </ul>
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4">
-                <ul  className=""style={{listStyle:"none"}}>
+                <ul  className="mt-2"style={{listStyle:"none"}}>
                     <li className='mb-3 home-ul' onClick={()=>nav('/romanticthemehome')} style={{cursor:'pointer'}}>Home</li>
                     <li className='mb-3 home-ul' onClick={()=>nav('/categories')} style={{cursor:'pointer'}} >Genres</li>
                     <li className='mb-3 home-ul' onClick={()=>nav('/subscription')} style={{cursor:'pointer'}} >Subscription</li>
@@ -25,7 +25,7 @@ const Footer = () => {
                 </ul>
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4">
-                <ul style={{listStyle:"none"}}>
+                <ul className='mt-2' style={{listStyle:"none"}}>
                     <li className='mb-3 text-info'>Stay connected with us:</li>
                     <li className='mb-3 home-ul' onClick={() => window.location.href = 'https://www.instagram.com/?hl=en'} style={{cursor:'pointer'}}>
                     <i className="fa-brands fa-instagram me-2" style={{color:"#E1306C"}}></i>Instagram

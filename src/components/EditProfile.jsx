@@ -4,150 +4,202 @@ import { useNavigate } from 'react-router-dom';
 const EditProfile = () => {
   const navigate = useNavigate();
 
-  // State to store the user's profile data
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName]         = useState('');
+  const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
-
-  // State to handle validation error messages
-  const [errors, setErrors] = useState({});
-
-  // Window size state to dynamically change styles
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors]     = useState({});
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Handle form submission to save profile
-  const handleSave = (e) => {
-    e.preventDefault(); // Prevent form submission
-
-    // Reset errors
-    setErrors({});
-
-    // Validate form fields
-    const newErrors = {};
-
-    if (!name) newErrors.name = 'Name is required';
-    if (!email) newErrors.email = 'Email is required';
-    if (!password) newErrors.password = 'Password is required';
-
-    // If there are validation errors, set them
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    // If validation passes, proceed with saving
-    // alert('Profile Saved!');
-    navigate('/ProfilePage');
-  };
-
-  // Update windowWidth when the window size changes
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Dynamically apply styles based on window width (media query effect)
+  const isMobile = windowWidth <= 768;
+
   const styles = {
     container: {
-      backgroundColor: 'black',
-      color: 'white',
+      backgroundColor: '#ffeef2',
+      color: '#000',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      height: '100vh',
+      minHeight: '100vh',
       padding: '20px',
       boxSizing: 'border-box',
-      fontSize: windowWidth <= 768 ? '14px' : '16px', // Responsive font size
+    },
+    formBox: {
+      width: isMobile ? '90%' : '400px',
+      backgroundColor: '#fff',
+      padding: '30px',
+      borderRadius: '12px',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
     },
     heading: {
-      color: 'white',
-      marginBottom: '20px',
-      
+      textAlign: 'center',
+      color: '#d87093',
+      marginBottom: '25px',
+      fontSize: '28px',
     },
     formGroup: {
-      marginBottom: '15px',
+      marginBottom: '20px',
+      position: 'relative',
     },
     label: {
       display: 'block',
-      fontSize: '26px',
+      fontSize: '16px',
+      marginBottom: '5px',
+      fontWeight: 'bold',
     },
     input: {
-      width: windowWidth <= 768 ? '250px' : '300px', // Responsive input width
+      width: '100%',
       padding: '10px',
       fontSize: '16px',
-      borderRadius: '5px',
+      borderRadius: '8px',
       border: '1px solid #ccc',
-      backgroundColor: '#333',
-      color: 'white',
-      marginBottom: '10px',
       outline: 'none',
+      boxSizing: 'border-box',
     },
-    button: {
-      backgroundColor: '#4CAF50',
-      color: 'white',
-      width:'320px',
-      padding:'10px',
-      border: 'none',
-      borderRadius: '5px',
+    eyeIcon: {
+      position: 'absolute',
+      right: '12px',
+      top: '40px',
       cursor: 'pointer',
-      fontSize: windowWidth <= 768 ? '20px' : '22px', // Responsive button font size
+      fontSize: '18px',
     },
     error: {
       color: 'red',
-      fontSize: '12px',
+      fontSize: '13px',
+      marginTop: '5px',
     },
+    button: {
+      backgroundColor: '#d87093',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '8px',
+      padding: '12px',
+      fontSize: '18px',
+      width: '100%',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      transition: '0.3s ease',
+    },
+    buttonDisabled: {
+      opacity: 0.6,
+      cursor: 'not-allowed',
+    },
+    backBtn: {
+      alignSelf: 'flex-start',
+      marginBottom: '20px',
+      background: 'linear-gradient(45deg, #FFB6C1 30%, #000 90%)',
+      color: '#fff',
+      padding: '10px 20px',
+      border: 'none',
+      borderRadius: '8px',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      marginTop: '-80px',
+    },
+  };
+
+  const validateName = (value) => /^[A-Za-z\s]+$/.test(value);
+  const validateEmail = (value) =>
+    /^[a-z0-9._%+-]+@[a-z0-9.-]+\.com$/.test(value) && !/[A-Z]/.test(value);
+  const validatePassword = (value) =>
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(value);
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+
+    if (!name || !validateName(name)) newErrors.name = 'Only letters allowed';
+    if (!email || !validateEmail(email)) newErrors.email = 'Valid lowercase .com email required';
+    if (!password || !validatePassword(password)) {
+      newErrors.password =
+        'Password must be 8+ chars with 1 uppercase, 1 number, 1 special char';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    navigate('/ProfilePage');
   };
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>Edit Profile</h1>
+      <button onClick={() => navigate('/ProfilePage')} style={styles.backBtn}>
+        &larr; Back
+      </button>
 
-      {/* Name */}
-      <div style={styles.formGroup}>
-        <label htmlFor="name" style={styles.label}>Name</label>
-        <input
-          type="text"
-          id="name"
-          value={name} // Controlled input
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your name"
-          style={styles.input}
-        />
-        {errors.name && <div style={styles.error}>{errors.name}</div>}
+      <div style={styles.formBox}>
+        <h1 style={styles.heading}>Edit Profile</h1>
+
+        <div style={styles.formGroup}>
+          <label htmlFor="name" style={styles.label}>Name</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+            style={styles.input}
+          />
+          {errors.name && <div style={styles.error}>{errors.name}</div>}
+        </div>
+
+        <div style={styles.formGroup}>
+          <label htmlFor="email" style={styles.label}>Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            style={styles.input}
+          />
+          {errors.email && <div style={styles.error}>{errors.email}</div>}
+        </div>
+
+        <div style={styles.formGroup}>
+          <label htmlFor="password" style={styles.label}>Password</label>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            style={styles.input}
+          />
+          {password && (
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={styles.eyeIcon}
+              role="button"
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </span>
+          )}
+          {errors.password && <div style={styles.error}>{errors.password}</div>}
+        </div>
+
+        {/* Save */}
+        <button
+          onClick={handleSave}
+          style={{
+            ...styles.button,
+            ...(name && email && password ? {} : styles.buttonDisabled),
+          }}
+          disabled={!name || !email || !password}
+        >
+          Save Profile
+        </button>
       </div>
-
-      {/* Email */}
-      <div style={styles.formGroup}>
-        <label htmlFor="email" style={styles.label}>Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email} // Controlled input
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          style={styles.input}
-        />
-        {errors.email && <div style={styles.error}>{errors.email}</div>}
-      </div>
-
-      {/* Password */}
-      <div style={styles.formGroup}>
-        <label htmlFor="password" style={styles.label}>Password</label>
-        <input
-          type="password"
-          id="password"
-          value={password} // Controlled input
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-          style={styles.input}
-        />
-        {errors.password && <div style={styles.error}>{errors.password}</div>}
-      </div>
-
-      {/* Save Button */}
-      <button onClick={handleSave} style={styles.button}>Save Profile</button>
     </div>
   );
 };
