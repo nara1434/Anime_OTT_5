@@ -4,6 +4,7 @@ import { faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 // import NavBar from './NavBar';
 import './ProfilePage.scss';
+import NavBar from './NavBar';
 
 function ProfilePage() {
   const [profileCount, setProfileCount] = useState(() => {
@@ -25,7 +26,9 @@ function ProfilePage() {
   const userIcons = Array.from({ length: profileCount });
 
   return (
-    <div className="user-page">
+    <div>
+      <NavBar/>
+      <div className="user-page">
       {/* <NavBar /> */}
       <div className="icon-circle">
         <h4><FontAwesomeIcon icon={faUser} /></h4>
@@ -57,6 +60,8 @@ function ProfilePage() {
         <Link className="item" to="/SignOut" onClick={handleSignOut}>Sign Out</Link>
       </div>
     </div>
+    </div>
+
   );
 }
 
