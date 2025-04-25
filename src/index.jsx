@@ -17,15 +17,10 @@ root.render(
   <React.StrictMode>
     
     <WishlistProvider>
-
-   <App />
-      
-
-    </WishlistProvider>
-   
     
-
-  </React.StrictMode>
+      <App />
+ </WishlistProvider>
+   </React.StrictMode>
 );
 
 

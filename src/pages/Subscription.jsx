@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Subscription.scss';
-import NavBar from '../components/NavBar';
+import NavBar from '../Components/NavBar';
  
 const plans = [
   {
@@ -42,8 +42,7 @@ const plans = [
     type: 'full-access',
   },
 ];
- 
-const Subscription = () => {
+ const Subscription = () => {
   const navigate = useNavigate();
  
   return (
@@ -67,8 +66,6 @@ const Subscription = () => {
       </div>
     </div>
     </div>
-  
   );
 };
- 
-export default Subscription;
+ export default Subscription;

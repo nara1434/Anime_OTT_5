@@ -335,7 +335,7 @@ const RomanticThemeHome = () => {
                         variant="solid"
                         color="primary"
                         size="sm"
-                        onClick={() => nav("/player")}
+                        onClick={() => nav("/framepage")}
                       >
                         Play Now <FaPlay className="ms-2 text-danger" />
                       </Button>
@@ -426,7 +426,7 @@ const RomanticThemeHome = () => {
                         variant="solid"
                         color="primary"
                         size="sm"
-                        onClick={() => nav("/player")}
+                        onClick={() => nav("/framepage")}
                       >
                         Play Now <FaPlay className="ms-2 text-danger" />
                       </Button>
@@ -517,7 +517,7 @@ const RomanticThemeHome = () => {
                         variant="solid"
                         color="primary"
                         size="sm"
-                        onClick={() => nav("/player")}
+                        onClick={() => nav("/framepage")}
                       >
                         Play Now <FaPlay className="ms-2 text-danger" />
                       </Button>
@@ -608,7 +608,7 @@ const RomanticThemeHome = () => {
                         variant="solid"
                         color="primary"
                         size="sm"
-                        onClick={() => nav("/player")}
+                        onClick={() => nav("/framepage")}
                       >
                         Play Now <FaPlay className="ms-2 text-danger" />
                       </Button>

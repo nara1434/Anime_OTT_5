@@ -259,7 +259,6 @@ const ThrillerThemeHome = () => {
             >
               CrimeThrillers
             </h3>
-            {/* <FaGreaterThan size={20} /> */}
           </div>
           <div
             className="hide-scrollbar-lovestories"
@@ -326,7 +325,7 @@ const ThrillerThemeHome = () => {
                         variant="solid"
                         color="primary"
                         size="sm"
-                        onClick={() => nav("/player")}
+                        onClick={() => nav("/framepage")}
                       >
                         Play Now <FaPlay className="ms-2 text-danger" />
                       </Button>
@@ -417,7 +416,7 @@ const ThrillerThemeHome = () => {
                         variant="solid"
                         color="primary"
                         size="sm"
-                        onClick={() => nav("/player")}
+                        onClick={() => nav("/framepage")}
                       >
                         Play Now <FaPlay className="ms-2 text-danger" />
                       </Button>
@@ -508,7 +507,7 @@ const ThrillerThemeHome = () => {
                         variant="solid"
                         color="primary"
                         size="sm"
-                        onClick={() => nav("/player")}
+                        onClick={() => nav("/framepage")}
                       >
                         Play Now <FaPlay className="ms-2 text-danger" />
                       </Button>
@@ -599,7 +598,7 @@ const ThrillerThemeHome = () => {
                         variant="solid"
                         color="primary"
                         size="sm"
-                        onClick={() => nav("/player")}
+                        onClick={() => nav("/framepage")}
                       >
                         Play Now <FaPlay className="ms-2 text-danger" />
                       </Button>
