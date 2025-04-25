@@ -14,47 +14,49 @@ const Payment = () => {
   });
   const [upiID, setUpiID] = useState('');
   const [selectedUPI, setSelectedUPI] = useState('');
-
-  // Handle changes for card details
-  const handleCardDetailsChange = (e) => {
-    setCardDetails({
+const handleCardDetailsChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'cardNumber' && !/^\d{0,16}$/.test(value)) return;
+    if (name === 'cvv' && !/^\d{0,3}$/.test(value)) return;
+    if (name === 'expiryDate' && !/^\d{0,2}\/?\d{0,2}$/.test(value)) return;
+setCardDetails({
       ...cardDetails,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
-
-  // Validate card details
-  const validateCardDetails = () => {
+const validateCardDetails = () => {
     const { cardNumber, expiryDate, cvv } = cardDetails;
-
-    if (!cardNumber || !expiryDate || !cvv) {
+if (!cardNumber || !expiryDate || !cvv) {
       toast.error('Please fill in all card details.');
       return false;
     }
-
-    if (cardNumber.length !== 16) {
-      toast.error('Card number should be 16 digits long.');
+if (!/^\d{16}$/.test(cardNumber)) {
+      toast.error('Card number must be 16 digits.');
       return false;
     }
-
-    if (cvv.length !== 3) {
-      toast.error('CVV should be 3 digits.');
+ if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
+      toast.error('Expiry date must be in MM/YY format.');
       return false;
     }
-
-    return true;
+if (!/^\d{3}$/.test(cvv)) {
+      toast.error('CVV must be 3 digits.');
+      return false;
+    }
+return true;
   };
-
-  // Validate UPI details
-  const validateUPI = () => {
+const validateUPI = () => {
     if (!upiID || !selectedUPI) {
-      toast.error('Please select a UPI payment method and enter your UPI ID.');
+      toast.error('Select UPI method and enter valid UPI ID.');
       return false;
     }
+if (!/^[\w.-]+@[\w]+$/.test(upiID)) {
+      toast.error('Enter a valid UPI ID.');
+      return false;
+    }
+
     return true;
   };
 
-  // Handle the payment process
   const handlePayment = () => {
     if (!paymentMethod) {
       toast.error('Please select a payment method.');
@@ -70,6 +72,10 @@ const Payment = () => {
 
   return (
     <div className="payment-page">
+      <div className="back-button" onClick={() => navigate('/subscription')}>
+        ⬅ Back 
+      </div>
+
       <div className="payment-container">
         <h1 className="payment-heading">Select Your Payment Method</h1>
 
@@ -122,30 +128,23 @@ const Payment = () => {
               <div className="payment-details">
                 <input
                   type="text"
-                  placeholder="Enter UPI ID"
+                  placeholder="Enter UPI ID (e.g., user@bank)"
                   value={upiID}
                   onChange={(e) => setUpiID(e.target.value)}
                 />
                 <div className="upi-options">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedUPI('Google Pay')}
-                  >
-                    Google Pay
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedUPI('PhonePe')}
-                  >
-                    PhonePe
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedUPI('PayTM')}
-                  >
-                    PayTM
-                  </button>
+                  {['Google Pay', 'PhonePe', 'PayTM'].map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => setSelectedUPI(option)}
+                      className={selectedUPI === option ? 'selected-upi' : ''}
+                    >
+                      {option}
+                    </button>
+                  ))}
                 </div>
+                {selectedUPI && <p className="selected-upi-text">Selected: {selectedUPI}</p>}
               </div>
             )}
           </div>
@@ -161,3 +160,4 @@ const Payment = () => {
 };
 
 export default Payment;
+

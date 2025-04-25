@@ -1,4 +1,4 @@
-
+ 
 import React from 'react';
 import NavBar from './NavBar';
 import Box from '@mui/joy/Box';
@@ -7,151 +7,151 @@ import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import Button from '@mui/joy/Button';
 import { FaPlay } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { useState,useEffect } from 'react';
 import Footer from './Footer';
-import { FaHeart } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 const slidesData = [
   {
     id: 1,
-    video: 'action1.mp4',
+    video: 'loveanime1.mp4',
     title: 'Mysterious Encounter',
-    description: 'A shadowy ninja leaps between rooftops under the moonlight!  ⚔️✨',
+    description: 'A shadowy figure appears in the mist... ❤️❤️',
   },
   {
     id: 2,
-    video: 'action2.mp4',
+    video: 'anime2.mp4',
     title: 'The Chase Begins',
-    description: 'Blades clash as mysterious warriors duel in the rain! ⚔️ 💥 🩸',
+    description: 'Intense rooftop pursuit under moonlight. 💞💗',
   },
   {
     id: 3,
     video: 'anime3.mp4',
     title: 'Secrets Revealed',
-    description: 'Neon-lit chase through the megacity slums!  🔫🤖 ',
+    description: 'Dark pasts come to light in a twisted plot.💜🔥🖤',
   },
 ];
-
-const crimeThrillers = [
+ 
+const videoCards = [
   {
     id: 1,
     title: 'Romantic River',
-    poster: '/assets/images/thriller1.png',
-  },
-  {
-    id: 2,
-    title: 'Forest Romance',
-    poster: '/assets/images/thriller2.png',
-  },
-  {
-    id: 3,
-    title: 'Rain Love',
-    poster: '/assets/images/thriller3.png',
-  },
-  {
-    id: 4,
-    title: 'Romantic River',
-    poster: '/assets/images/thriller4.png',
-  },
-  {
-    id: 5,
-    title: 'Romantic River',
-    poster: '/assets/images/thriller5.png',
-  },
-];
-
-const psychologicalThriller = [
-  {
-    id: 1,
-    title: "Neon Genesis Evangelion",
     poster: "/assets/images/psycology1.png",
   },
   {
     id: 2,
-    title: "Human Lost",
-    poster: "/assets/images/psycology2.png",
+    title: 'Forest Romance',
+    poster: "/assets/images/psycology4.png",
   },
   {
     id: 3,
-    title: "Genocidal Organ",
-    poster: "/assets/images/psycology3.png",
+    title: 'Rain Love',
+    poster: "/assets/images/psycology2.png",
   },
   {
     id: 4,
-    title: "King of Thorn",
+    title: 'Romantic River',
+    poster: "/assets/images/psycology3.png",
+  },
+  {
+    id: 5,
+    title: 'Romantic River',
+    poster:  '/assets/images/thriller1.png',
+  },
+];
+ 
+const heartfeltMovies = [
+  {
+    id: 1,
+    title: "Always With You",
+    poster: "/assets/images/action3.png",
+  },
+  {
+    id: 2,
+    title: "Echoes of Love",
+    poster: "/assets/images/action1.png",
+  },
+  {
+    id: 3,
+    title: "The Final Letter",
+    poster: "/assets/images/action1.png",
+  },
+  {
+    id: 4,
+    title: "Moonlit Memories",
+    poster:"/assets/images/mystry3.png",
+  },
+  {
+    id: 5,
+    title: "Until We Meet Again",
+    poster: "/assets/images/mystry1.png",
+  },
+];
+ 
+const romanticMovies = [
+  {
+    id: 1,
+    title: "Midnight Serenade",
+    poster:"/assets/images/mystry3.png",
+  },
+  {
+    id: 2,
+    title: "Whispers in the Rain",
+    poster: "/assets/images/mystry4.png",
+  },
+  {
+    id: 3,
+    title: "Love Beyond Time",
+    poster: "/assets/images/action1.png",
+  },
+  {
+    id: 4,
+    title: "The Pink Promise",
+    poster: "/assets/images/action5.png",
+  },
+  {
+    id: 5,
+    title: "Forever Us",
+    poster: "/assets/images/mystry2.png",
+  },
+];
+ 
+const romanticDramas = [
+  {
+    id: 1,
+    title: "Tears of a Rose",
+    poster: "/assets/images/action2.png",
+  },
+  {
+    id: 2,
+    title: "Crimson Letters",
+    poster: "/assets/images/mystry3.png",
+  },
+  {
+    id: 3,
+    title: "When Hearts Collide",
+    poster: "/assets/images/action1.png",
+  },
+  {
+    id: 4,
+    title: "Beneath the Stars",
     poster: "/assets/images/psycology4.png",
   },
   {
     id: 5,
-    title: "Paprika",
-    poster: "/assets/images/psycology5.png",
+    title: "Fading Vows",
+    poster:  "/assets/images/psycology3.png",
   },
 ];
-
-const mysteryMovies = [
-  {
-    id: 1,
-    title: "Detective Conan",
-    poster: "/assets/images/mystry1.png",
-  },
-  {
-    id: 2,
-    title: "Ghost Shell",
-    poster: "/assets/images/mystry2.png",
-  },
-  {
-    id: 3,
-    title: "Summer Time Rendering",
-    poster: "/assets/images/mystry3.png",
-  },
-  {
-    id: 4,
-    title: "Garden of Sinners",
-    poster: "/assets/images/mystry4.png",  
-  },
-  {
-    id: 5,
-    title: "Children Who Chase Lost Voices",
-    poster: "/assets/images/mystry5.png", 
-  },
-];
-
-const actionThrillers = [
-  {
-    id: 1,
-    title: "Akira",
-    poster: "/assets/images/action1.png",
-  },
-  {
-    id: 2,
-    title: "Sword of the Strange",
-    poster: "/assets/images/action2.png",
-  },
-  {
-    id: 3,
-    title: "Redliner",
-    poster: "/assets/images/action3.png",
-  },
-  {
-    id: 4,
-    title: "Bayonetta",
-    poster: "/assets/images/action4.png",
-  },
-  {
-    id: 5,
-    title: "Ninja Scroll",
-    poster: "/assets/images/action5.png",
-  },
-];
-
-const ThrillerThemeHome = () => {
-  let nav = useNavigate();
+ 
+const Home = () => {
+  let nav =useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % slidesData.length);
     }, 5000);
-
+ 
     return () => clearInterval(interval);
   }, []);
   return (
@@ -175,7 +175,7 @@ const ThrillerThemeHome = () => {
                   ></button>
                 ))}
               </div>
-
+ 
               <div className="carousel-inner">
                 {slidesData.map((slide, index) => (
                   <div
@@ -197,14 +197,14 @@ const ThrillerThemeHome = () => {
                       <h5 className="text-white">{slide.title}</h5>
                       <p className="text-white">{slide.description}</p>
                       <div className='d-flex gap-3 justify-content-center text-center mt-3'>
-                        <button className='btn btn-danger px-4 py-2' onClick={()=>nav('/player')}>Watch Now <FaPlay className='ms-1'/></button>
-                        <button className='btn btn-danger px-4 py-2'onClick={()=>nav('/wishlistpage')}>WishList <FaHeart  className='ms-1'/></button>
-                      </div>
+                      <button className='btn btn-danger px-4 py-2' onClick={()=>nav('/player')}>Watch Now <FaPlay className='ms-1'/></button>
+                      <button className='btn btn-danger px-4 py-2' onClick={()=>nav('/wishlistpage')}>WishList <FaHeart  className='ms-1'/></button>
+                    </div>
                     </div>
                   </div>
                 ))}
               </div>
-
+ 
               <button
                 className="carousel-control-prev"
                 type="button"
@@ -237,7 +237,7 @@ const ThrillerThemeHome = () => {
                   letterSpacing: '1px',
                 }}
               >
-                CrimeThrillers
+                Love Stories
               </h3>
               {/* <FaGreaterThan size={20} /> */}
             </div>
@@ -260,7 +260,7 @@ const ThrillerThemeHome = () => {
                   listStyle: 'none',
                 }}
               >
-                {crimeThrillers.map((video) => (
+                {videoCards.map((video) => (
                   <Card
                     key={video.id}
                     component="li"
@@ -296,7 +296,7 @@ const ThrillerThemeHome = () => {
                         <h5 style={{ color: '#fff', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                           {video.title}
                         </h5>
-                        <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/framepage')}>
+                        <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/player')}>
                           Play Now <FaPlay className="ms-2 text-danger" />
                         </Button>
                       </Box>
@@ -306,8 +306,8 @@ const ThrillerThemeHome = () => {
               </Box>
             </div>
           </div>
-
-{/* psychological thriller Movies Section */}
+ 
+{/* Heartfelt Movies Section */}
 <div className="row mt-4">
   <div className="d-flex justify-content-between align-items-center mb-2">
     <h3
@@ -319,7 +319,7 @@ const ThrillerThemeHome = () => {
         letterSpacing: '1px',
       }}
     >
-      Psychological Thriller Movies
+      Heartfelt Movies
     </h3>
     {/* <FaGreaterThan size={20} /> */}
   </div>
@@ -342,7 +342,7 @@ const ThrillerThemeHome = () => {
         listStyle: 'none',
       }}
     >
-      {psychologicalThriller.map((movie) => (
+      {heartfeltMovies.map((movie) => (
         <Card
           key={movie.id}
           component="li"
@@ -379,7 +379,7 @@ const ThrillerThemeHome = () => {
               <h5 style={{ color: '#fff', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                 {movie.title}
               </h5>
-              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/framepage')}>
+              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/player')}>
                 Play Now <FaPlay className="ms-2 text-danger" />
               </Button>
             </Box>
@@ -389,8 +389,8 @@ const ThrillerThemeHome = () => {
     </Box>
   </div>
 </div>
-
-{/* mystery Movies Section */}
+ 
+{/* Romantic Movies Section */}
 <div className="row mt-4">
   <div className="d-flex justify-content-between align-items-center mb-2">
     <h3
@@ -402,11 +402,11 @@ const ThrillerThemeHome = () => {
         letterSpacing: '1px',
       }}
     >
-      Mystery Movies
+      Romantic Movies
     </h3>
     {/* <FaGreaterThan size={20} /> */}
   </div>
-
+ 
   <div
     className="hide-scrollbar-romanticmovies"
     style={{
@@ -426,7 +426,7 @@ const ThrillerThemeHome = () => {
         listStyle: 'none',
       }}
     >
-      {mysteryMovies.map((movie) => (
+      {romanticMovies.map((movie) => (
         <Card
           key={movie.id}
           component="li"
@@ -463,7 +463,7 @@ const ThrillerThemeHome = () => {
               <h5 style={{ color: '#fff', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                 {movie.title}
               </h5>
-              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/framepage')}>
+              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/player')}>
                 Play Now <FaPlay className="ms-2 text-danger" />
               </Button>
             </Box>
@@ -473,8 +473,8 @@ const ThrillerThemeHome = () => {
     </Box>
   </div>
 </div>
-
-{/* Action  Section */}
+ 
+{/* Romantic Dramas Section */}
 <div className="row mt-4">
   <div className="d-flex justify-content-between align-items-center mb-2">
     <h3
@@ -486,7 +486,7 @@ const ThrillerThemeHome = () => {
         letterSpacing: '1px',
       }}
     >
-      Action Thriller's
+      Romantic Dramas
     </h3>
     {/* <FaGreaterThan size={20} /> */}
   </div>
@@ -509,7 +509,7 @@ const ThrillerThemeHome = () => {
         listStyle: 'none',
       }}
     >
-      {actionThrillers.map((drama) => (
+      {romanticDramas.map((drama) => (
         <Card
           key={drama.id}
           component="li"
@@ -546,7 +546,7 @@ const ThrillerThemeHome = () => {
               <h5 style={{ color: '#fff', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                 {drama.title}
               </h5>
-              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/framepage')}>
+              <Button variant="solid" color="primary" size="sm" onClick={()=>nav('/player')}>
                 Play Now <FaPlay className="ms-2 text-danger" />
               </Button>
             </Box>
@@ -561,10 +561,12 @@ const ThrillerThemeHome = () => {
     </>
   );
 };
-
-export default ThrillerThemeHome;
-
-
-
-
-
+ 
+export default Home;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
