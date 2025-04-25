@@ -53,6 +53,7 @@ import History from './components/History';
 import AccountSettings from './components/AccountSettings';
 import DownloadPage from './components/DownloadPage';
 import SignOut from './components/SignOut';
+import Home from './components/Home';
 
 const ProtectedRoute = ({ element }) => {
   const { isAuthenticated } = useAuth();
@@ -82,12 +83,13 @@ function App() {
             <Route path="/accountsettings" element={<AccountSettings/>}/>
             <Route path="/downloadpage" element={<DownloadPage/>}/>
             <Route path="/signout" element={<SignOut/>}/>
+            <Route path="/home" element={<Home/>}/>
             
 
 
-              <Route path='*' element={<PageNotFound/>}/>
+              {/* <Route path='*' element={<PageNotFound/>}/>
          <Route path="/romanticThemeHome" element={<RomanticThemeHome/>}/>
-          <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/>
+          <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/> */}
 
 
 
