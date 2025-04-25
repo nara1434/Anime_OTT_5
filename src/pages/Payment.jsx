@@ -1,163 +1,290 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './Payment.scss';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Payment = () => {
-  const navigate = useNavigate();
-  const [paymentMethod, setPaymentMethod] = useState('');
-  const [cardDetails, setCardDetails] = useState({
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
+function Payment({ trial }) {
+  const [paymentDetails, setPaymentDetails] = useState({
+    cardNumber: "",
+    expiry: "",
+    cvv: "",
+    name: "",
+    email: "",
+    upiId: "",
   });
-  const [upiID, setUpiID] = useState('');
-  const [selectedUPI, setSelectedUPI] = useState('');
-const handleCardDetailsChange = (e) => {
+  const [paymentMethod, setPaymentMethod] = useState("card");
+const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'cardNumber' && !/^\d{0,16}$/.test(value)) return;
-    if (name === 'cvv' && !/^\d{0,3}$/.test(value)) return;
-    if (name === 'expiryDate' && !/^\d{0,2}\/?\d{0,2}$/.test(value)) return;
-setCardDetails({
-      ...cardDetails,
-      [name]: value,
-    });
+if (name === "name") {
+      const alphaOnly = value.replace(/[^a-zA-Z\s]/g, ""); // Only letters and space
+      setPaymentDetails({ ...paymentDetails, [name]: alphaOnly });
+    } else if (name === "cardNumber") {
+      const numericValue = value.replace(/\D/g, "");
+      setPaymentDetails({ ...paymentDetails, [name]: numericValue });
+    } else if (name === "cvv") {
+      const numericValue = value.replace(/\D/g, "");
+      setPaymentDetails({ ...paymentDetails, [name]: numericValue });
+    } else if (name === "expiry") {
+      const numericValue = value.replace(/\D/g, "");
+      let formatted = numericValue;
+      if (formatted.length >= 3) {
+        formatted = `${formatted.slice(0, 2)}/${formatted.slice(2, 4)}`;
+      }
+      if (formatted.length <= 5) {
+        setPaymentDetails({ ...paymentDetails, [name]: formatted });
+      }
+    } else {
+      setPaymentDetails({ ...paymentDetails, [name]: value });
+    }
   };
-const validateCardDetails = () => {
-    const { cardNumber, expiryDate, cvv } = cardDetails;
-if (!cardNumber || !expiryDate || !cvv) {
-      toast.error('Please fill in all card details.');
-      return false;
-    }
-if (!/^\d{16}$/.test(cardNumber)) {
-      toast.error('Card number must be 16 digits.');
-      return false;
-    }
- if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
-      toast.error('Expiry date must be in MM/YY format.');
-      return false;
-    }
-if (!/^\d{3}$/.test(cvv)) {
-      toast.error('CVV must be 3 digits.');
-      return false;
-    }
-return true;
+  
+const validateCardNumber = (num) => num.length === 16;
+ const validateExpiry = (expiry) => {
+    if (!expiry || expiry.length !== 5 || !expiry.includes("/")) return false;
+    const [month, year] = expiry.split("/");
+    const mm = parseInt(month);
+    const yy = parseInt(year);
+    return mm >= 1 && mm <= 12 && !isNaN(yy);
   };
-const validateUPI = () => {
-    if (!upiID || !selectedUPI) {
-      toast.error('Select UPI method and enter valid UPI ID.');
-      return false;
-    }
-if (!/^[\w.-]+@[\w]+$/.test(upiID)) {
-      toast.error('Enter a valid UPI ID.');
-      return false;
-    }
-
-    return true;
+const validateCVV = (cvv) => cvv.length === 3;
+const validateUPI = (upiId) => {
+    const patterns = {
+      phonepay: /^[a-zA-Z0-9._%+-]+@phonepe$/,
+      googlepay: /^[a-zA-Z0-9._%+-]+@gpay$/,
+      paytm: /^[a-zA-Z0-9._%+-]+@paytm$/,
+    };
+    return patterns[paymentMethod]?.test(upiId) || false;
   };
-
-  const handlePayment = () => {
-    if (!paymentMethod) {
-      toast.error('Please select a payment method.');
+const handleSubmit = (e) => {
+    e.preventDefault();
+if (paymentDetails.name.trim() === "") {
+      toast.error("Name is required.");
       return;
     }
-
-    if (paymentMethod === 'card' && !validateCardDetails()) return;
-    if (paymentMethod === 'upi' && !validateUPI()) return;
-
-    toast.success('Payment Successful! 🎉');
-    setTimeout(() => navigate('/subscription'), 2000);
+if (!/^[a-zA-Z\s]+$/.test(paymentDetails.name)) {
+      toast.error("Name must contain only letters.");
+      return;
+    }
+if (paymentMethod === "card") {
+      if (!validateCardNumber(paymentDetails.cardNumber)) {
+        toast.error("Card number must be exactly 16 digits.");
+        return;
+      }
+      if (!validateExpiry(paymentDetails.expiry)) {
+        toast.error("Invalid expiry format. Use MM/YY.");
+        return;
+      }
+      if (!validateCVV(paymentDetails.cvv)) {
+        toast.error("CVV must be exactly 3 digits.");
+        return;
+      }
+    } else if (!validateUPI(paymentDetails.upiId)) {
+      toast.error(`Invalid UPI ID for ${paymentMethod}.`);
+      return;
+    }
+if (trial) {
+      toast.success("Free Trial Registered!");
+    } else {
+      const method = paymentMethod === "card"
+        ? "Card"
+        : paymentMethod === "phonepay"
+        ? "PhonePe"
+        : paymentMethod === "googlepay"
+        ? "Google Pay"
+        : "Paytm";
+      toast.success(`Payment successful with ${method}`);
+    }
+console.log("Payment Submitted:", paymentDetails, "Method:", paymentMethod);
   };
-
-  return (
-    <div className="payment-page">
-      <div className="back-button" onClick={() => navigate('/subscription')}>
-        ⬅ Back 
-      </div>
-
-      <div className="payment-container">
-        <h1 className="payment-heading">Select Your Payment Method</h1>
-
-        <div className="payment-methods">
-          <div
-            className={`payment-method ${paymentMethod === 'card' ? 'selected' : ''}`}
-            onClick={() => setPaymentMethod('card')}
-          >
-            <div className="payment-icon">💳</div>
-            <h3>Credit/Debit Card</h3>
-            {paymentMethod === 'card' && (
-              <div className="payment-details">
-                <input
-                  type="text"
-                  placeholder="Card Number"
-                  name="cardNumber"
-                  value={cardDetails.cardNumber}
-                  onChange={handleCardDetailsChange}
-                  maxLength="16"
-                />
-                <div className="expiry-cvv">
+ const optionStyle = {
+    padding: "8px 15px",
+    border: "2px solid #fff",
+    borderRadius: "10px",
+    cursor: "pointer",
+    margin: "5px",
+    flex: "1",
+    textAlign: "center",
+    color: "#fff",
+    backgroundColor: "#d81b60",
+  };
+const selectedStyle = {
+    ...optionStyle,
+    borderColor: "#28A745",
+    backgroundColor: "#333",
+    fontWeight: "bold",
+  };
+const inputStyle = {
+    width: "100%",
+    padding: "10px",
+    marginTop: "8px",
+    backgroundColor: "white",
+    color: "black",
+    border: "1px solid #555",
+    borderRadius: "4px",
+    boxSizing: "border-box",
+  };
+return (
+    <div
+      style={{
+        padding: "20px",
+        maxWidth: "500px",
+        width: "90%",
+        margin: "20px auto",
+        background: "pink",
+        borderRadius: "10px",
+        boxShadow: "0 4px 8px rgba(255, 255, 255, 0.1)",
+        color: "#fff",
+      }}
+    >
+      <ToastContainer position="top-center" />
+      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
+        {trial ? "Free Trial Registration" : "Payment"}
+      </h1>
+<form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+          marginTop: "20px",
+        }}
+      >
+        <label>
+          Full Name:
+          <input
+            type="text"
+            name="name"
+            value={paymentDetails.name}
+            onChange={handleChange}
+            required
+            placeholder="Your Name"
+            style={inputStyle}
+          />
+        </label>
+{trial ? (
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={paymentDetails.email}
+              onChange={handleChange}
+              required
+              placeholder="you@example.com"
+              style={inputStyle}
+            />
+          </label>
+        ) : (
+          <>
+            <div style={{ margin: "20px 0" }}>
+              <p style={{ marginBottom: "10px", color: "#fff" }}>
+                Select Payment Method:
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                }}
+              >
+                {["card", "phonepay", "googlepay", "paytm"].map((method) => (
+                  <div
+                    key={method}
+                    style={
+                      paymentMethod === method ? selectedStyle : optionStyle
+                    }
+                    onClick={() => setPaymentMethod(method)}
+                  >
+                    {method === "card"
+                      ? "Card"
+                      : method === "phonepay"
+                      ? "PhonePe"
+                      : method === "googlepay"
+                      ? "Google Pay"
+                      : "Paytm"}
+                  </div>
+                ))}
+              </div>
+            </div>
+ {paymentMethod === "card" ? (
+              <>
+                <label>
+                  Card Number:
                   <input
                     type="text"
+                    name="cardNumber"
+                    value={paymentDetails.cardNumber}
+                    onChange={handleChange}
+                    required
+                    placeholder="1234567812345678"
+                    style={inputStyle}
+                    maxLength="16"
+                  />
+                </label>
+                <label>
+                  Expiry Date (MM/YY):
+                  <input
+                    type="text"
+                    name="expiry"
+                    value={paymentDetails.expiry}
+                    onChange={handleChange}
+                    required
                     placeholder="MM/YY"
-                    name="expiryDate"
-                    value={cardDetails.expiryDate}
-                    onChange={handleCardDetailsChange}
+                    style={inputStyle}
                     maxLength="5"
                   />
+                </label>
+                <label>
+                  CVV:
                   <input
                     type="text"
-                    placeholder="CVV"
                     name="cvv"
-                    value={cardDetails.cvv}
-                    onChange={handleCardDetailsChange}
+                    value={paymentDetails.cvv}
+                    onChange={handleChange}
+                    required
+                    placeholder="123"
+                    style={inputStyle}
                     maxLength="3"
                   />
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div
-            className={`payment-method ${paymentMethod === 'upi' ? 'selected' : ''}`}
-            onClick={() => setPaymentMethod('upi')}
-          >
-            <div className="payment-icon">📱</div>
-            <h3>UPI Payment</h3>
-            {paymentMethod === 'upi' && (
-              <div className="payment-details">
+                </label>
+              </>
+            ) : (
+              <label>
+                UPI ID:
                 <input
                   type="text"
-                  placeholder="Enter UPI ID (e.g., user@bank)"
-                  value={upiID}
-                  onChange={(e) => setUpiID(e.target.value)}
+                  name="upiId"
+                  value={paymentDetails.upiId}
+                  onChange={handleChange}
+                  required
+                  placeholder={`yourupi@${paymentMethod}`}
+                  style={inputStyle}
                 />
-                <div className="upi-options">
-                  {['Google Pay', 'PhonePe', 'PayTM'].map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => setSelectedUPI(option)}
-                      className={selectedUPI === option ? 'selected-upi' : ''}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-                {selectedUPI && <p className="selected-upi-text">Selected: {selectedUPI}</p>}
-              </div>
+              </label>
             )}
-          </div>
-        </div>
-
-        <button className="pay-button" onClick={handlePayment}>
-          Pay Now
+          </>
+        )}<button
+          type="submit"
+          style={{
+            padding: "12px",
+            border: "none",
+            borderRadius: "5px",
+            backgroundColor: "#d81b60",
+            color: "white",
+            fontSize: "1rem",
+            cursor: "pointer",
+          }}
+        >
+          {trial ? "Register for Free Trial" : "Submit Payment"}
         </button>
-        <ToastContainer />
+      </form>
+
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <Link to="/subscription" style={{ textDecoration: "none", color: "#007BFF" }}>
+          Back to Subscription
+        </Link>
       </div>
     </div>
   );
-};
-
+}
 export default Payment;
-

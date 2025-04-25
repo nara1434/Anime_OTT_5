@@ -28,7 +28,7 @@ const ResetPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newPassword || !confirmPassword || !email) {
-      toast.error("Please fill all fields."); 
+      toast.error("Please fill all fields.");
       return;
     }
     if (!validatePassword(newPassword)) {
@@ -44,7 +44,10 @@ const ResetPassword = () => {
     localStorage.setItem("email", email);
     localStorage.setItem("password", newPassword);
     toast.success("Password reset successful!");
-    navigate("/login");
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
   };
   const styles = {
     container: {
@@ -142,7 +145,10 @@ const ResetPassword = () => {
     <div style={styles.container}>
       <div style={styles.leftStyle}>
         <div style={styles.overlayStyle}></div>
-        <div className="branding">
+        <div
+          className="branding"
+          style={{ zIndex: 1, color: "#fff", textAlign: "center" }}
+        >
           <h1>💕 Welcome to LoveThrill</h1>
           <p>Feel the romance. Embrace the thrill.</p>
         </div>
@@ -154,6 +160,7 @@ const ResetPassword = () => {
           </h2>
           <form onSubmit={handleSubmit}>
             <div style={styles.emailText}>{email}</div>
+
             <label style={styles.label}>New Password</label>
             <div style={styles.passwordWrap}>
               <input
@@ -197,7 +204,7 @@ const ResetPassword = () => {
           </form>
         </div>
       </div>
-      <ToastContainer /> 
+      <ToastContainer />
     </div>
   );
 };

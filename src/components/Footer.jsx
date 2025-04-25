@@ -19,7 +19,9 @@ const Footer = () => {
                 <ul  className=""style={{listStyle:"none"}}>
                     <li className='mb-3 home-ul' onClick={()=>nav('/romanticthemehome')} style={{cursor:'pointer'}}>Home</li>
                     <li className='mb-3 home-ul' onClick={()=>nav('/categories')} style={{cursor:'pointer'}} >Genres</li>
-                    <li className='home-ul' onClick={()=>nav('/subscription')} style={{cursor:'pointer'}} >Subscription</li>
+                    <li className='mb-3 home-ul' onClick={()=>nav('/subscription')} style={{cursor:'pointer'}} >Subscription</li>
+                    <li className='mb-3 home-ul' onClick={()=>nav('/wishlistpage')} style={{cursor:'pointer'}} >WhishList</li>
+                    <li className='home-ul' onClick={()=>nav('/profilepage')} style={{cursor:'pointer'}} >Profile</li>
                 </ul>
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4">
@@ -44,8 +46,8 @@ const Footer = () => {
                 </div>
             </div>  
         </div>
+      
     </>
-  )
-}
-
-export default Footer
+  );
+};
+export default Footer;
