@@ -20,6 +20,13 @@ import DownloadPage from './Components/DownloadPage';
 import SignOut from './Components/SignOut';
 import Player from './pages/Player';
 import Plan from './pages/Plan';
+import Home from'./Components/Home';
+import ForgotPassword from './pages/ForgotPassword';
+import OtpPage from './pages/Otp';
+import ResetPasswordPage from './pages/ResetPassword';
+
+
+
 
 function App() {
   return (
@@ -46,6 +53,19 @@ function App() {
             <Route path="/downloadpage" element={<DownloadPage/>}/>
             <Route path="/signout" element={<SignOut/>}/>
             <Route path="/Plan" element={<Plan/>}/>
+            <Route path="/home" element={<Home/>}/>
+            <Route path="/forgotpassword" element={<ForgotPassword/>}/>
+            <Route path="/otppage" element={<OtpPage/>}/>
+            <Route path="/reset-password" element={<ResetPasswordPage/>}/>
+            
+
+
+             
+         {/* <Route path="/romanticThemeHome" element={<RomanticThemeHome/>}/>
+          <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/> */}
+
+
+
           <Route path='*' element={<PageNotFound/>}/>
         </Routes>
       </Router>

@@ -139,14 +139,13 @@ const romanticDramas = [
     poster: "/assets/images/psycology3.png",
   },
 ];
-const RomanticThemeHome = () => {
+const Home = () => {
   let nav = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % slidesData.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, []);
   return (
@@ -155,11 +154,7 @@ const RomanticThemeHome = () => {
       <div className="container">
         <div className="row" style={{ marginTop: "67px" }}>
           <div className="col-12">
-            <div
-              style={{ position: "relative" }}
-              className="carousel slide soft-glow-shadow"
-              id="carouselExampleCaptions"
-            >
+            <div id="carouselExampleCaptions" className="carousel slide">
               <div className="carousel-indicators">
                 {slidesData.map((slide, index) => (
                   <button
@@ -183,14 +178,12 @@ const RomanticThemeHome = () => {
                     }`}
                   >
                     <video
+                      className="d-block w-100"
                       autoPlay
                       loop
                       muted
                       playsInline
                       style={{ height: "450px", objectFit: "cover" }}
-                      className={`d-block w-100 ${
-                        index === 1 ? "heartbeat-video" : ""
-                      }`}
                     >
                       <source
                         src={`/assets/videos/${slide.video}`}
@@ -200,13 +193,7 @@ const RomanticThemeHome = () => {
                     </video>
                     <div className="carousel-caption d-none d-md-block">
                       <h5 className="text-white">{slide.title}</h5>
-                      <p
-                        className={` text-white ${
-                          index === 1 ? "heartbeat-pulse" : ""
-                        }`}
-                      >
-                        {slide.description}
-                      </p>
+                      <p className="text-white">{slide.description}</p>
                       <div className="d-flex gap-3 justify-content-center text-center mt-3">
                         <button
                           className="btn btn-danger px-4 py-2"
@@ -624,4 +611,4 @@ const RomanticThemeHome = () => {
     </>
   );
 };
-export default RomanticThemeHome;
+export default Home;

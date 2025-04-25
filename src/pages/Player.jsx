@@ -100,7 +100,7 @@ const Player = () => {
   const navigate = useNavigate();
 
   const handleBackButtonClick = () => {
-    navigate('/ProfilePage'); 
+    navigate('/home'); 
   };
 
   return (
