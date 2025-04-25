@@ -1,41 +1,6 @@
-
-// import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import { AuthProvider, useAuth } from './Context/AuthContext'; // Import AuthContext
-// import Login from './pages/Login';
-// import Signup from './pages/SignUp';
-// import Subscription from './pages/Subscription';
-// import Payment from './pages/Payment';
-// import Categories from './pages/Categories';
-
-// const ProtectedRoute = ({ element }) => {
-//   const { isAuthenticated } = useAuth();
-//   return isAuthenticated ? element : <Login />;
-// };
-
-// function App() {
-//   return (
-//     <AuthProvider>
-//       <Router>
-//         <Routes>
-//           <Route path="/" element={<Login />} />
-//           <Route path="/signup" element={<Signup />} />
-//           <Route path="/subscription" element={<ProtectedRoute element={<Subscription />} />} />
-//           <Route path="/categories" element={<ProtectedRoute element={<Categories />} />} />
-//           <Route path="/payment" element={<ProtectedRoute element={<Payment />} />} />
-//         </Routes>
-//       </Router>
-//     </AuthProvider>
-//   );
-// }
-
-// export default App;
-
-
 import React from 'react';
 import './App.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider, useAuth } from './Context/AuthContext'; // Import AuthContext
 import Login from './pages/Login';
 import Signup from './pages/SignUp';
 import Subscription from './pages/Subscription';
@@ -54,15 +19,11 @@ import AccountSettings from './Components/AccountSettings';
 import DownloadPage from './Components/DownloadPage';
 import SignOut from './Components/SignOut';
 import Player from './pages/Player';
-
-const ProtectedRoute = ({ element }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? element : <Login />;
-};
+import Plan from './pages/Plan';
 
 function App() {
   return (
-    <AuthProvider>
+    
       <Router>
         <Routes>
           <Route path="/" element={<Signup />} />
@@ -84,23 +45,10 @@ function App() {
             <Route path="/accountsettings" element={<AccountSettings/>}/>
             <Route path="/downloadpage" element={<DownloadPage/>}/>
             <Route path="/signout" element={<SignOut/>}/>
-            
-
-
-              <Route path='*' element={<PageNotFound/>}/>
-         <Route path="/romanticThemeHome" element={<RomanticThemeHome/>}/>
-          <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/>
-
-
-
+            <Route path="/Plan" element={<Plan/>}/>
           <Route path='*' element={<PageNotFound/>}/>
-
-
         </Routes>
       </Router>
-    </AuthProvider>
-
   );
 }
-
 export default App;

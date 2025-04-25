@@ -560,7 +560,7 @@ const NavBar = () => {
               <li className="nav-item">
                 <span 
                   className="nav-link"
-                  onClick={() => nav("/profile")}
+                  onClick={() => nav("/profilepage")}
                   style={{ color: navTextColor }}
                 >
                   <FaUserCircle size={20} />

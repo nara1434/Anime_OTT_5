@@ -5,12 +5,11 @@ const FramePage = () => {
   const navigate = useNavigate(); // Initialize navigate function
 
   const handleWishlist = () => {
-    alert('Added to Wishlist ❤️'); // Show an alert when adding to wishlist
     navigate('/wishlistpage'); // Navigate to the Wishlist page
   };
 
   const handleWatchNow = () => {
-    alert('Navigating to Player 🎬');
+    navigate('/player'); // Navigate to the Player page (or wherever you want the user to go)
   };
 
   return (

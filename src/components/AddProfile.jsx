@@ -1,125 +1,139 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import './AddProfile.scss';
-
-// const Profile = () => {
-//   const navigate = useNavigate();
-//   const [name, setName] = useState('');
-//   const [email, setEmail] = useState('');
-
-//   const handleSave = () => {
-//     // Get the current count of profiles created from localStorage
-//     const profileCount = parseInt(localStorage.getItem('profileCount'), 10) || 0;
-
-//     // Increment the profile count
-//     localStorage.setItem('profileCount', (profileCount + 1).toString());
-
-//     // Save profile info to localStorage (or use any other storage option)
-//     localStorage.setItem('profileCreated', 'true');
-//     // alert('Profile saved!');
-//     navigate('/ProfilePage'); // Navigate back to the Profile page after saving
-//   };
-
-//   return (
-//     <div className="container">
-//       <h1>Create Profile</h1>
-//       <div className="form-group">
-//         <label htmlFor="name">Name</label>
-//         <input
-//           type="text"
-//           id="name"
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//           placeholder="Enter your name"
-//         />
-//       </div>
-//       <div className="form-group">
-//         <label htmlFor="email">Email</label>
-//         <input
-//           type="email"
-//           id="email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           placeholder="Enter your email"
-//         />
-//       </div>
-//       <button onClick={handleSave}>Save Profile</button>
-//     </div>
-//   );
-// };
-
-// export default Profile;
-
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AddProfile.scss';
-
-const animeAvatars = [
-  { id: 1, name: 'Naruto', src: 'https://i.imgur.com/jT3fW7V.png' },
-  { id: 2, name: 'Luffy', src: 'https://i.imgur.com/ZF6s192.png' },
-  { id: 3, name: 'Sakura', src: 'https://i.imgur.com/KqR8LJo.png' },
-  { id: 4, name: 'Goku', src: 'https://i.imgur.com/egXhnHK.png' }
-];
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [selectedAvatar, setSelectedAvatar] = useState(null);
-  const [name, setName] = useState('');
+  const [newName, setnewName] = useState('');
   const [email, setEmail] = useState('');
 
+  
   const handleSave = () => {
-    const profileCount = parseInt(localStorage.getItem('profileCount'), 10) || 0;
-    localStorage.setItem('profileCount', (profileCount + 1).toString());
-    localStorage.setItem('profileCreated', 'true');
-    localStorage.setItem(`profile_${profileCount}`, JSON.stringify({
-      name,
-      email,
-      avatar: selectedAvatar
-    }));
-    navigate('/ProfilePage');
+    const count = parseInt(localStorage.getItem('profileCount'), 10) || 0;
+    const next = count + 1;
+    localStorage.setItem('profileCount', next.toString());
+    localStorage.setItem(`profile_${next}`, JSON.stringify({ newName, email }));
+    navigate('/profilepage');
   };
 
-  return (
-    <div className="profile-container">
-      <h1>Create Profile</h1>
-      <div className="avatar-selection">
-        {animeAvatars.map((avatar) => (
-          <div
-            key={avatar.id}
-            className={`avatar-item ${selectedAvatar === avatar.src ? 'selected' : ''}`}
-            onClick={() => setSelectedAvatar(avatar.src)}
-          >
-            <img src={avatar.src} alt={avatar.name} />
-            <p>{avatar.name}</p>
-          </div>
-        ))}
-      </div>
+    const handleBackButtonClick = () => {
+      navigate('/ProfilePage'); 
+    };
 
-      <div className="form-group">
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your name"
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-        />
-      </div>
-      <button onClick={handleSave} disabled={!name || !email || !selectedAvatar}>
-        Save Profile
+  return (
+    <>
+      <button 
+        onClick={handleBackButtonClick}
+        style={{
+          background: 'linear-gradient(45deg, #FFB6C1 30%, #000000 90%)',
+          color: 'white',
+          padding: '10px 20px',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          marginTop: '35px',
+          marginLeft: '12px',
+          width: '100px',
+          fontSize: '16px',
+          fontWeight:'bold',
+          transition: 'background-color 0.3s ease',
+        }}
+      >
+        &larr; Back
       </button>
-    </div>
+
+      <style>
+        {`
+        
+        body{
+          background-color: #ffeef2;
+        }
+
+          .container {
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 2rem;
+            background-color: #ffeef2;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+          }
+
+          h1{
+          color:#d87093;
+          }
+
+          .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+          }
+
+          .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+          }
+
+          .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+          }
+
+          .form-group input:focus {
+            outline: none;
+            border-color: #4a90e2;
+            background-color: #fff5f7;
+          }
+
+          button {
+            width: 70%;
+            padding: 0.8rem;
+            font-size: 1rem;
+            color: white;
+            background-color: #d87093;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            fontweight:bold;
+            transition: background-color 0.25s ease;
+          }
+
+          button:hover {
+            background-color: #d87093;
+          }
+        `}
+      </style>
+
+      <div className="container">
+        <h1>Create Profile</h1>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="newName"
+            value={newName} 
+            onChange={e => setnewName(e.target.value)}
+            placeholder="Enter your name"
+          />
+   
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Enter your email"
+          />
+        </div>
+        <button onClick={handleSave}>Save Profile</button>
+      </div>
+    </>
   );
 };
 

@@ -1,5 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './Player.scss';
+import { CiBrightnessUp } from "react-icons/ci";
+import { FaVolumeHigh } from "react-icons/fa6";
+import Relationship from '../Components/Relationship';
+import { useNavigate } from 'react-router-dom';
 
 const Player = () => {
   const videoRef = useRef(null);
@@ -23,9 +27,9 @@ const Player = () => {
   ];
 
   const scenes = [
-    { time: 10, title: "The Kiss", thumbnail: "/assets/images/action1.png" },
-    { time: 30, title: "The Escape", thumbnail: "/assets/images/action2.png" },
-    { time: 60, title: "The Confession", thumbnail: "/assets/images/anime.png" },
+    { time: 10, title: "The Kiss", thumbnail: "/assets/images/10sec.PNG" },
+    { time: 30, title: "The Escape", thumbnail: "/assets/images/30sec.PNG" },
+    { time: 60, title: "The Confession", thumbnail: "/assets/images/1min.PNG" },
   ];
 
   useEffect(() => {
@@ -33,9 +37,7 @@ const Player = () => {
   }, []);
 
   const handleVolumeChange = (e) => {
-    let vol = parseFloat(e.target.value);
-    if (vol < 0) vol = 0;
-    if (vol > 1) vol = 1;
+    const vol = parseFloat(e.target.value);
     setVolume(vol);
     videoRef.current.volume = vol;
   };
@@ -52,6 +54,12 @@ const Player = () => {
     const scene = scenes.find(scene => scene.time === currentTime);
     if (scene && currentScene !== scene.title) {
       setCurrentScene(scene.title);
+    }
+
+    if (currentTime >= 10 && currentTime < 12) {
+      videoRef.current.classList.add('blurred');
+    } else {
+      videoRef.current.classList.remove('blurred');
     }
   };
 
@@ -89,91 +97,155 @@ const Player = () => {
     setShowPoll(true);
   };
 
+  const navigate = useNavigate();
+
+  const handleBackButtonClick = () => {
+    navigate('/ProfilePage'); 
+  };
+
   return (
-    <div className="emotional-player-container">
-      <div className="video-wrapper" style={{ filter: `brightness(${brightness}%)` }}>
-        {showThumbnail && (
-          <div className="thumbnail-overlay">
-            <p>{showThumbnail ? "Mature themes ahead" : "You’re entering a romantic episode"}</p>
-            <button onClick={() => setShowThumbnail(false)}>Start Watching</button>
-          </div>
-        )}
+    <div className='one'>
+    <div>
 
-        {showWarning && (
-          <div className={`trigger-warning ${showWarning.type}`}>
-            {showWarning.message}
-          </div>
-        )}
+      <button
+        onClick={handleBackButtonClick}
+        style={{
+          background: 'linear-gradient(45deg, #FFB6C1 30%, #000000 90%)',
+          color: 'white',
+          padding: '10px 20px',
+          border: '1px solid white',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          marginTop: '30px',
+          marginLeft: '20px',
+          fontSize: '16px',
+          fontWeight: 'bold',
+          transition: 'background-color 0.3s ease',
+        }}
+      >
+        &larr; Back
+      </button>
 
-        <video
-          ref={videoRef}
-          width="100%"
-          height="auto"
-          controls
-          crossOrigin="anonymous"
-          className="emotional-video"
-          onTimeUpdate={handleTimeUpdate}
-          onEnded={showPollAtEnd}
-        >
-          <source
-            src="/assets/yt1z.net - Justin Bieber - Baby ft. Ludacris (1080p).mp4"
-            type="video/mp4"
-          />
-          {subtitlesEnabled && (
-            <track
-              label="English"
-              kind="subtitles"
-              srcLang="en"
-              src="/assets/bossbaby_subs.vtt"
-              default
-            />
+      <div className="emotional-player-container">
+        <div className="video-wrapper" style={{ filter: `brightness(${brightness}%)` }}>
+          {showThumbnail && (
+            <div className="thumbnail-overlay">
+              <p>Mature themes ahead</p>
+              <button onClick={() => setShowThumbnail(false)}>Start Watching</button>
+            </div>
           )}
-          Your browser does not support the video tag.
-        </video>
-      </div>
 
-      <div className="scene-thumbnails">
-        {sceneThumbnails.map((scene, index) => (
-          <div
-            key={index}
-            className="scene-thumbnail"
-            onClick={() => videoRef.current.currentTime = scene.time}
-            onMouseEnter={() => setSceneHovered(scene.title)}
-            onMouseLeave={() => setSceneHovered(null)}
+          {showWarning && (
+            <div className={`trigger-warning ${showWarning.type}`}>
+              {showWarning.message}
+            </div>
+          )}
+
+          <video
+            ref={videoRef}
+            width="100%"
+            height="auto"
+            controls
+            crossOrigin="anonymous"
+            className="emotional-video"
+            onTimeUpdate={handleTimeUpdate}
+            onEnded={showPollAtEnd}
           >
-            <img src={scene.thumbnail} alt={scene.title} />
-            {sceneHovered === scene.title && <div className="scene-tooltip">{scene.title}</div>}
+            <source
+              src="/assets/yt1z.net - Justin Bieber - Baby ft. Ludacris (1080p).mp4"
+              type="video/mp4"
+            />
+            {subtitlesEnabled && (
+              <track
+                label="English"
+                kind="subtitles"
+                srcLang="en"
+                src="/assets/bossbaby_subs.vtt"
+                default
+              />
+            )}
+          </video>
+          
+          <div className="video-overlay-buttons">
+            <button className="seek-btn inside left" onClick={() => videoRef.current.currentTime -= 10}>⏪</button>
+            <button className="seek-btn inside right" onClick={() => videoRef.current.currentTime += 10}>⏩</button>
           </div>
-        ))}
-      </div>
 
-      <div className="controls">
-        <label>
-          Speed: <span>⚡</span>
-          <select value={playbackSpeed} onChange={(e) => changePlaybackSpeed(parseFloat(e.target.value))}>
-            <option value={1}>Normal</option>
-            <option value={1.5}>1.5x</option>
-            <option value={2}>2x</option>
-          </select>
-        </label>
-
-        <label>
-          Quality: <span>📺</span>
-          <select value={videoQuality} onChange={(e) => changeVideoQuality(e.target.value)}>
-            <option value="1080p">1080p</option>
-            <option value="720p">720p</option>
-            <option value="480p">480p</option>
-          </select>
-        </label>
-      </div>
-
-      {showPoll && !hasVoted && (
-        <div className="poll">
-          <p>Did you enjoy the video?</p>
-          <button onClick={() => handleVote('ship')}>💘</button>
-          <button onClick={() => handleVote('breakup')}>💔</button>
         </div>
-      )}
+
+        <div className="volume-brightness-controls">
+          <label className="control-item">
+            <span className="label-text"><FaVolumeHigh /></span>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={handleVolumeChange}
+            />
+          </label>
+
+          <label className="control-item">
+            <span className="label-text"><CiBrightnessUp /></span>
+            <input
+              type="range"
+              min="50"
+              max="150"
+              step="1"
+              value={brightness}
+              onChange={(e) => setBrightness(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div className="controls">
+          <label>
+            Speed: ⚡
+            <select value={playbackSpeed} onChange={(e) => changePlaybackSpeed(parseFloat(e.target.value))}>
+              <option value={1}>Normal</option>
+              <option value={1.5}>1.5x</option>
+              <option value={2}>2x</option>
+            </select>
+          </label>
+
+          <label>
+            Quality: 📺
+            <select value={videoQuality} onChange={(e) => changeVideoQuality(e.target.value)}>
+              <option value="1080p">1080p</option>
+              <option value="720p">720p</option>
+              <option value="480p">480p</option>
+            </select>
+          </label>
+        </div>
+
+        <div className="scene-thumbnails">
+          {sceneThumbnails.map((scene, index) => (
+            <div
+              key={index}
+              className="scene-thumbnail"
+              onClick={() => videoRef.current.currentTime = scene.time}
+              onMouseEnter={() => setSceneHovered(scene.title)}
+              onMouseLeave={() => setSceneHovered(null)}
+            >
+              <img src={scene.thumbnail} alt={scene.title} />
+              {sceneHovered === scene.title && <div className="scene-tooltip">{scene.title}</div>}
+            </div>
+          ))}
+        </div>
+
+        {showPoll && !hasVoted && (
+          <div className="poll">
+            <p>Did you enjoy the video?</p>
+            <button onClick={() => handleVote('ship')}>💘</button>
+            <button onClick={() => handleVote('breakup')}>💔</button>
+          </div>
+        )}
+      </div>
+      <div style={{ marginTop: '-130px' }}>
+        <Relationship />
+      </div>
+    </div>
     </div>
   );
 };

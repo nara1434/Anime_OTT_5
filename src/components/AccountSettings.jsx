@@ -1,195 +1,218 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 const AccountSettings = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('sdb.mec@gmail.com');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // T
   const navigate = useNavigate();
+  const isMobile = windowWidth <= 768;
 
-  const windowWidth = window.innerWidth;
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  // Inline styles
+  const validateEmail = (email) => {
+    const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.com$/;
+    return regex.test(email) && email === email.toLowerCase();
+  };
+
+  const validatePassword = (password) => {
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    return regex.test(password);
+  };
+
+  const validateForm = () => {
+    let valid = true;
+    setEmailError('');
+    setPasswordError('');
+    setConfirmPasswordError('');
+
+    if (!validateEmail(email)) {
+      setEmailError('Enter a valid lowercase email ending in .com with no characters after .com');
+      valid = false;
+    }
+
+    if (!validatePassword(password)) {
+      setPasswordError('Password must be atleast 8 characters with 1 capital letter, 1 number, and 1 special character');
+      valid = false;
+    }
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
+      valid = false;
+    }
+
+    return valid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      navigate('/ProfilePage');
+    }
+  };
+
   const styles = {
     container: {
-      backgroundColor: 'black',
-      height:'100vh',
-      color: 'white',
+      backgroundColor: '#ffeef2',
+      minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '20px',
       boxSizing: 'border-box',
-      fontSize: windowWidth <= 768 ? '14px' : '16px',
+    },
+    formBox: {
+      width: isMobile ? '90%' : '400px',
+      backgroundColor: '#fff',
+      padding: '30px',
+      borderRadius: '12px',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     title: {
-      fontSize: windowWidth <= 768 ? '24px' : '32px',
-      marginBottom: '20px',
+      fontSize: isMobile ? '24px' : '28px',
+      marginBottom: '25px',
+      color: '#d87093',
+      textAlign: 'center',
     },
     formGroup: {
-      marginBottom: '15px',
+      width: '100%',
+      marginBottom: '18px',
+      position: 'relative',
     },
     label: {
       display: 'block',
-      marginBottom: '5px',
+      marginBottom: '6px',
+      fontWeight: 'bold',
       fontSize: '16px',
     },
     input: {
-      width: windowWidth <= 768 ? '250px' : '300px',
-      padding: '10px',
+      width: '100%',
+      padding: '10px 40px 10px 10px',
       fontSize: '16px',
-      borderRadius: '5px',
+      borderRadius: '8px',
       border: '1px solid #ccc',
-      backgroundColor: '#333',
-      color: 'white',
-      marginBottom: '10px',
+      backgroundColor: '#fff',
+      color: 'black',
       outline: 'none',
-    },
-    button: {
-      backgroundColor: '#4CAF50',
-      color: 'white',
-      border: 'none',
-      padding: '10px 20px',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: windowWidth <= 768 ? '14px' : '16px',
     },
     error: {
       color: 'red',
-      fontSize: '12px',
+      fontSize: '13px',
+      marginTop: '5px',
+    },
+    eyeIcon: {
+      position: 'absolute',
+      right: '42px',
+      top: '40px',
+      cursor: 'pointer',
+      fontSize: '18px',
+    },
+    buttonGroup: {
+      display: 'flex',
+      gap: '10px',
+      marginTop: '20px',
+      width: '200px',
+      marginLeft: '-10px',
+    },
+    button: {
+      flex: 1,
+      padding: '10px',
+      borderRadius: '8px',
+      border: 'none',
+      fontWeight: 'bold',
+      fontSize: '16px',
+      cursor: 'pointer',
+      color: '#fff',
+      width: '90px',
+    },
+    
+    saveButton: {
+      backgroundColor: '#d87093',
     },
     cancelButton: {
-      backgroundColor: 'gray',
-      color: 'white',
-      border: 'none',
-      padding: '10px 20px',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: windowWidth <= 768 ? '14px' : '16px',
-      marginLeft: '10px',
+      backgroundColor: '#6b7280',
     },
-    backButton: {
-      backgroundColor: '#007BFF',
-      color: 'white',
-      border: 'none',
-      padding: '10px 20px',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: windowWidth <= 768 ? '14px' : '16px',
-      marginTop: '20px',
-    },
-  };
-
-  const validateForm = () => {
-    let isValid = true;
-
-    // Reset errors
-    setEmailError('');
-    setPasswordError('');
-    setConfirmPasswordError('');
-
-    // Validate email
-    if (!email) {
-      setEmailError('Email is required');
-      isValid = false;
-    }
-
-    // Validate password
-    if (!password) {
-      setPasswordError('Password is required');
-      isValid = false;
-    }
-
-    if (password && password.length < 6) {
-      setPasswordError('Password must be at least 6 characters');
-      isValid = false;
-    }
-
-    // Validate confirm password
-    if (password && confirmPassword !== password) {
-      setConfirmPasswordError('Passwords do not match');
-      isValid = false;
-    }
-
-    return isValid;
-  };
-
-  const handleSave = (e) => {
-    e.preventDefault();
-
-    // Validate form before submitting
-    if (validateForm()) {
-      // Show the confirmation alert after form validation
-      const isConfirmed = window.confirm('Your account settings have been saved successfully. Click OK to go back to the User page.');
-
-      if (isConfirmed) {
-        // Navigate to the User page after clicking OK
-        navigate('/ProfilePage');
-      }
-    }
   };
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Account Settings</h1>
+      <form onSubmit={handleSubmit} style={styles.formBox}>
+        <h2 style={styles.title}>Account Settings</h2>
 
-      {/* Email */}
-      <div style={styles.formGroup}>
-        <label htmlFor="email" style={styles.label}>Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          style={styles.input}
-        />
-        {emailError && <div style={styles.error}>{emailError}</div>}
-      </div>
+        <div style={styles.formGroup}>
+          <label htmlFor="email" style={styles.label}>Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            readOnly
+            onChange={(e) => setEmail(e.target.value)}
+            style={styles.input}
+          />
+          {emailError && <div style={styles.error}>{emailError}</div>}
+        </div>
+   <div style={styles.formGroup}>
+  <label htmlFor="password" style={styles.label}>Password</label>
+  <input
+    type={showPassword ? 'text' : 'password'}
+    id="password"
+    placeholder="Enter your password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    style={styles.input}
+  />
+  <span
+    onClick={() => setShowPassword(!showPassword)}
+    style={styles.eyeIcon}
+    role="button"
+    aria-label="Toggle Password Visibility"
+  >
+    {showPassword ? '🙈' : '👁️'}
+  </span>
+  {passwordError && <div style={styles.error}>{passwordError}</div>}
+</div>
 
-      {/* Password */}
-      <div style={styles.formGroup}>
-        <label htmlFor="password" style={styles.label}>Password</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-          style={styles.input}
-        />
-        {passwordError && <div style={styles.error}>{passwordError}</div>}
-      </div>
-
-      {/* Confirm Password */}
-      <div style={styles.formGroup}>
-        <label htmlFor="confirmPassword" style={styles.label}>Confirm Password</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Confirm your password"
-          style={styles.input}
-        />
-        {confirmPasswordError && <div style={styles.error}>{confirmPasswordError}</div>}
-      </div>
-
-      {/* Buttons */}
-      <div>
-        <button onClick={handleSave} style={styles.button}>Save</button>
-        <Link to="/ProfilePage">
-          <button style={styles.cancelButton}>Cancel</button>
-        </Link>
-      </div>
-
-      {/* Back to User Page Button */}
-      
+<div style={styles.formGroup}>
+  <label htmlFor="confirmPassword" style={styles.label}>Confirm Password</label>
+  <input
+    type={showConfirmPassword ? 'text' : 'password'}
+    id="confirmPassword"
+    placeholder="Confirm your password"
+    value={confirmPassword}
+    onChange={(e) => setConfirmPassword(e.target.value)}
+    style={styles.input}
+  />
+  <span
+    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+    style={styles.eyeIcon}
+    role="button"
+    aria-label="Toggle Confirm Password Visibility"
+  >
+    {showConfirmPassword ? '🙈' : '👁️'}
+  </span>
+  {confirmPasswordError && <div style={styles.error}>{confirmPasswordError}</div>}
+</div>
+        <div style={styles.buttonGroup}>
+          <button type="submit" style={{ ...styles.button, ...styles.saveButton }}>Save</button>
+          <Link to="/ProfilePage" style={{ flex: 1 }}>
+            <button type="button" style={{ ...styles.button, ...styles.cancelButton }}>Cancel</button>
+          </Link>
+        </div>
+      </form>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react'
-//import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Footer = () => {
-    //let nav = useNavigate();
+    let nav = useNavigate();
   return (
     <>
         <div className="container-fluid mt-5 bg-dark text-white">
@@ -17,9 +17,9 @@ const Footer = () => {
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4">
                 <ul  className=""style={{listStyle:"none"}}>
-                    <li className='mb-3 home-ul' style={{cursor:'pointer'}}>Home</li>
-                    <li className='mb-3 home-ul' style={{cursor:'pointer'}} >Genres</li>
-                    <li className='home-ul' style={{cursor:'pointer'}} >Subscription</li>
+                    <li className='mb-3 home-ul' onClick={()=>nav('/romanticthemehome')} style={{cursor:'pointer'}}>Home</li>
+                    <li className='mb-3 home-ul' onClick={()=>nav('/categories')} style={{cursor:'pointer'}} >Genres</li>
+                    <li className='home-ul' onClick={()=>nav('/subscription')} style={{cursor:'pointer'}} >Subscription</li>
                 </ul>
                 </div>
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4">
