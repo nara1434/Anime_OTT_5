@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Subscription.scss';
-import NavBar from '../Components/NavBar';
+import NavBar from '../components/NavBar';
  
 const plans = [
   {

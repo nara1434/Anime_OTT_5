@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import './Player.scss';
 import { CiBrightnessUp } from "react-icons/ci";
 import { FaVolumeHigh } from "react-icons/fa6";
-import Relationship from '../Components/Relationship';
+import Relationship from '../components/Relationship';
 import { useNavigate } from 'react-router-dom';
 
 const Player = () => {
