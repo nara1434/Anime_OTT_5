@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Categories.scss";
 import { Link } from "react-router-dom";
-import NavBar from "../Components/NavBar";
+import NavBar from "../components/NavBar";
 
 const genres = [
   {
