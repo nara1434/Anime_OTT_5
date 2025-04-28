@@ -116,7 +116,7 @@ const AccountSettings = () => {
     },
     eyeIcon: {
       position: 'absolute',
-      right: '42px',
+      right: '22px',
       top: '40px',
       cursor: 'pointer',
       fontSize: '18px',

@@ -20,7 +20,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    const updatedValue = name === "email" ? value.toLowerCase() : value;
+    setFormData((prev) => ({ ...prev, [name]: updatedValue }));
   };
 
   const validateForm = () => {
@@ -63,7 +65,7 @@ const Login = () => {
 
       <div className="login-right">
         <button className="login-toggle border-0" onClick={() => navigate("/")}>
-          Signup
+          Sign Up
         </button>
 
         <div className="login-container">

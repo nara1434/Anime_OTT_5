@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS
 import './Signup.scss';
 import { FaGoogle, FaFacebookF, FaTwitter, FaInstagram, FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -19,12 +21,13 @@ const Signup = () => {
 
   const validateEmail = (email) => {
     if (/^[0-9]+@gmail\.com$/.test(email)) {
-      return false; // Restrict emails with only numbers before @gmail.com
+      return false; 
     }
-    return /^[a-z0-9._%+-]+@gmail\.com$/.test(email); // Allow standard Gmail format
+    return /^[a-z0-9._%+-]+@gmail\.com$/.test(email);
   };
 
   const validateName = (name) => /^[a-zA-Z\s]+$/.test(name);
+
   const validateForm = () => {
     const newErrors = {};
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
@@ -38,7 +41,7 @@ const Signup = () => {
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!validateEmail(formData.email.trim())) {
-      newErrors.email = 'Please enter a valid Gmail address (cannot be only numbers before @gmail.com)'; // Updated error message
+      newErrors.email = 'Please enter a valid Gmail address (cannot be only numbers before @gmail.com)';
     }
 
     if (!formData.password) {
@@ -63,13 +66,27 @@ const Signup = () => {
       return;
     }
 
+    // Save user data
     localStorage.setItem('userEmail', formData.email);
     localStorage.setItem('userPassword', formData.password);
-    navigate('/login');
+
+    // Show success Toast
+    toast.success('Account created successfully', {
+      position: "top-center",
+      autoClose: 2000, // 2 seconds
+    });
+
+    // Navigate after a short delay
+    setTimeout(() => {
+      navigate('/login');
+    }, 2000); // Wait for 2 seconds before navigating
   };
 
   return (
     <div className="signup-body">
+      {/* Toast Container */}
+      <ToastContainer />
+
       <div className="signup-left">
         <div className="branding">
           <h1>💕 Welcome to LoveThrill</h1>
@@ -123,6 +140,7 @@ const Signup = () => {
           </div>
           {errors.confirmPassword && <div className="error">{errors.confirmPassword}</div>}
           <button onClick={handleSignup}>Sign Up</button>
+
           <div className="social-icons">
             <span className="google" onClick={() => window.open('https://accounts.google.com/signin', '_blank')}>
               <FaGoogle />
@@ -144,3 +162,4 @@ const Signup = () => {
 };
 
 export default Signup;
+
