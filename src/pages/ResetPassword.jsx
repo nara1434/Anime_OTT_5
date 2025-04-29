@@ -160,7 +160,6 @@ const ResetPassword = () => {
           </h2>
           <form onSubmit={handleSubmit}>
             <div style={styles.emailText}>{email}</div>
-
             <label style={styles.label}>New Password</label>
             <div style={styles.passwordWrap}>
               <input

@@ -1,4 +1,3 @@
- 
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -161,7 +160,7 @@ const NavBar = () => {
         <div className="container-fluid">
           <span
             className="navbar-brand"
-            onClick={() => nav("/romanticThemeHome")}
+            onClick={() => nav("/home")}
             style={{
               cursor: "pointer",
               fontWeight: 'bold',

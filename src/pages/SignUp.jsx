@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS
+import 'react-toastify/dist/ReactToastify.css'; 
 import './Signup.scss';
 import { FaGoogle, FaFacebookF, FaTwitter, FaInstagram, FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -11,23 +11,19 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const updatedValue = name === 'email' ? value.toLowerCase() : value;
     setFormData(prev => ({ ...prev, [name]: updatedValue }));
     setErrors(prev => ({ ...prev, [name]: '' }));
   };
-
   const validateEmail = (email) => {
     if (/^[0-9]+@gmail\.com$/.test(email)) {
       return false; 
     }
     return /^[a-z0-9._%+-]+@gmail\.com$/.test(email);
   };
-
   const validateName = (name) => /^[a-zA-Z\s]+$/.test(name);
-
   const validateForm = () => {
     const newErrors = {};
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
@@ -58,33 +54,24 @@ const Signup = () => {
 
     return newErrors;
   };
-
   const handleSignup = () => {
     const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
-
-    // Save user data
     localStorage.setItem('userEmail', formData.email);
     localStorage.setItem('userPassword', formData.password);
-
-    // Show success Toast
     toast.success('Account created successfully', {
       position: "top-center",
-      autoClose: 2000, // 2 seconds
+      autoClose: 2000, 
     });
-
-    // Navigate after a short delay
     setTimeout(() => {
       navigate('/login');
-    }, 2000); // Wait for 2 seconds before navigating
+    }, 2000); 
   };
-
   return (
     <div className="signup-body">
-      {/* Toast Container */}
       <ToastContainer />
 
       <div className="signup-left">
@@ -160,6 +147,4 @@ const Signup = () => {
     </div>
   );
 };
-
 export default Signup;
-
