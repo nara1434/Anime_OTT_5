@@ -56,7 +56,6 @@ const MaterialUISwitch = styled(MuiSwitch)(({ theme }) => ({
     borderRadius: 20 / 2,
   },
 }));
- 
 const NavBar = () => {
   const nav = useNavigate();
   const location = useLocation();
@@ -144,8 +143,8 @@ const NavBar = () => {
           background-color: ${isThriller ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
           border-radius: 4px;
         }
-      `}</style>
- 
+      `}
+      </style>
       <nav
         className="navbar navbar-expand-lg fixed-top"
         style={{
@@ -175,7 +174,7 @@ const NavBar = () => {
           </span>
  
           <button
-            className="navbar-toggler"
+            className="navbar-toggler bg-white"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarContent"
@@ -292,9 +291,146 @@ const NavBar = () => {
       </nav>
     </ThemeProvider>
   );
-};
- 
+}; 
 export default NavBar;
- 
- 
- 
+// import React, { useState } from "react";
+// import { useNavigate, useLocation } from "react-router-dom";
+// import { createTheme, ThemeProvider, CssBaseline, styled } from "@mui/material";
+// import { FaHeart, FaUserCircle } from "react-icons/fa";
+// import { IoMdHome } from "react-icons/io";
+// import { MdOutlineSubscriptions } from "react-icons/md";
+// import { RiMovie2Fill } from "react-icons/ri";
+
+// const MaterialUISwitch = styled("span")({
+//   width: 62,
+//   height: 34,
+//   padding: 7,
+//   display: "inline-block",
+//   cursor: "pointer",
+//   backgroundColor: "#f06292",
+//   borderRadius: "34px",
+//   transition: "all 0.3s ease",
+// });
+
+// const NavBar = () => {
+//   const [darkMode, setDarkMode] = useState(false);
+//   const nav = useNavigate();
+//   const location = useLocation();
+
+//   const toggleTheme = () => {
+//     setDarkMode(!darkMode);
+//   };
+
+//   const theme = createTheme({
+//     palette: {
+//       mode: darkMode ? "dark" : "light",
+//       background: {
+//         default: darkMode ? "#000000" : "#FFF5E4",
+//       },
+//       primary: {
+//         main: darkMode ? "#ffffff" : "#d49fa3",
+//       },
+//       text: {
+//         primary: darkMode ? "#ffffff" : "#000000",
+//       },
+//     },
+//   });
+
+//   const navTextColor = darkMode ? "#ffffff" : "#000000";
+//   const activeTextColor = "#f06292";
+
+//   const isActive = (path) => {
+//     return location.pathname === path;
+//   };
+
+//   return (
+//     <ThemeProvider theme={theme}>
+//       <CssBaseline />
+//       <nav
+//         className="navbar navbar-expand-lg fixed-top"
+//         style={{
+//           backgroundColor: darkMode ? "black" : "pink",
+//           color: navTextColor,
+//           backdropFilter: "blur(10px)",
+//           WebkitBackdropFilter: "blur(10px)",
+//           borderBottom: darkMode ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(0, 0, 0, 0.1)",
+//           padding: "0.5rem 1rem",
+//         }}
+//       >
+//         <div className="container-fluid">
+//           <span
+//             className="navbar-brand"
+//             onClick={() => nav("/home")}
+//             style={{
+//               cursor: "pointer",
+//               fontWeight: "bold",
+//               fontSize: "1.5rem",
+//               background: "linear-gradient(45deg, #FFB6C1 30%, #000000 90%)",
+//               WebkitBackgroundClip: "text",
+//               WebkitTextFillColor: "transparent",
+//               marginRight: "2rem",
+//             }}
+//           >
+//             Anime OTT
+//           </span>
+
+//           <button
+//             className="navbar-toggler bg-white"
+//             type="button"
+//             data-bs-toggle="collapse"
+//             data-bs-target="#navbarContent"
+//             aria-controls="navbarContent"
+//             aria-expanded="false"
+//             aria-label="Toggle navigation"
+//             style={{ color: navTextColor }}
+//           >
+//             <span className="navbar-toggler-icon"></span>
+//           </button>
+
+//           <div className="collapse navbar-collapse" id="navbarContent">
+//             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+//               <li className="nav-item">
+//                 <span
+//                   className={`nav-link ${isActive("/home") ? "active" : ""}`}
+//                   onClick={() => nav("/home")}
+//                   style={{ color: isActive("/home") ? activeTextColor : navTextColor }}
+//                 >
+//                   <IoMdHome className="nav-icon" />
+//                   <span>Home</span>
+//                 </span>
+//               </li>
+
+//               <li className="nav-item ms-2">
+//                 <span
+//                   className="nav-link"
+//                   style={{ color: navTextColor }}
+//                 >
+//                   <MdOutlineSubscriptions className="nav-icon" />
+//                   <span onClick={()=>nav('/subscription')}>Subscriptions</span>
+//                 </span>
+//               </li>
+
+//               <li className="nav-item ms-2">
+//                 <span
+//                   className="nav-link"
+//                   style={{ color: navTextColor }}
+//                 >
+//                   <FaHeart className="nav-icon" />
+//                   <span onClick={()=>nav('/wishlistpage')}>Favorites</span>
+//                 </span>
+//               </li>
+//             </ul>
+
+//             <div className="d-flex align-items-center">
+//               <MaterialUISwitch onClick={toggleTheme} />
+//               <FaUserCircle size={30} color={navTextColor} style={{ marginLeft: "1rem", cursor: "pointer" }} />
+//             </div>
+
+//           </div>
+//         </div>
+//       </nav>
+//     </ThemeProvider>
+//   );
+// };
+
+// export default NavBar;
