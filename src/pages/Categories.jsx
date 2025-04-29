@@ -1,277 +1,354 @@
-// import React, { useState } from 'react';
-// import './Categories.scss';
-// import { Link } from 'react-router-dom';
-
-// const genres = [
-//   {
-//     id: 1,
-//     name: 'Romantic',
-//     description: 'Fall in love with the most heartwarming stories.',
-//     anime: [
-//       { title: 'Your Name', image: '/assets/Categories/img1.jpg' },
-//       { title: 'Toradora', image: '/assets/Categories/img2.webp' },
-//       { title: 'Toradora', image: '/assets/Categories/img3.webp' },
-//       { title: 'Toradora', image: '/assets/Categories/img4.jpg' },
-//       { title: 'Toradora', image: '/assets/Categories/img5.jpg' },
-//       { title: 'Toradora', image: '/assets/Categories/img6.jpg' },
-//       { title: 'Toradora', image: '/assets/Categories/img7.jpg' },
-//       { title: 'Toradora', image: '/assets/Categories/img8.webp' },
-//       { title: 'Toradora', image: '/assets/Categories/img1.jpg' },
-//       { title: 'Toradora', image: '/assets/Categories/img2.webp' },
-//       // Add more anime items here
-//     ],
-//      backgroundColor: '#FFE4E1', // Soft pastel pink background
-//   textColor: '#FF4F58',       // Light rose pink for text
-// //   cardColor: '#FFF5E1',  
-//   },
-//   {
-//     id: 2,
-//     name: 'Thriller',
-//     description: 'Dive into intense and mysterious worlds.',
-//     anime: [
-//       { title: 'Death Note', image: '/assets/Categories/thriller1.jpeg' },
-//       { title: 'Steins;Gate', image: '/assets/Categories/thriller2.jpg'  },
-//       { title: 'Steins;Gate', image: '/assets/Categories/thriller3.jpg'  },
-//       { title: 'Steins;Gate', image: '/assets/Categories/thriller4.jpg'  },
-//       { title: 'Steins;Gate', image: '/assets/Categories/thriller5.jpg'  },
-//       { title: 'Steins;Gate', image: '/assets/Categories/thriller6.jpg' },
-//       { title: 'Steins;Gate', image: '/assets/Categories/thriller7.jpg'  },
-//       { title: 'Steins;Gate', image: '/assets/Categories/thriller8.jpg'  },
-//       { title: 'Steins;Gate', image:'/assets/Categories/thriller9.avif'  },
-//       { title: 'Steins;Gate', image: '/assets/Categories/thriller3.jpg'  },
-//       // Add more anime items here
-//     ],
-//     backgroundColor: '#333',  // Dark noir style
-//     textColor: '#FF4F58',     // Red highlights
-//   },
-//   {
-//     id: 3,
-//     name: 'Action',
-//     description: 'Get ready for adrenaline-pumping action scenes.',
-//     anime: [
-//       { title: 'Attack on Titan', image: '/assets/Categories/action1.jpeg' },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action2.avif'  },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action3.jpg'  },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action4.avif'  },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action5.avif'  },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action6.jpg'  },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action7.jpg'  },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action8.jpg'  },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action9.jpg'  },
-//       { title: 'Fullmetal Alchemist', image: '/assets/Categories/action10.jpg'  },
-      
-      
-//       // Add more anime items here
-//     ],
-//     backgroundColor: '#87CEEB',  // Sky blue background
-//     textColor: '#FF4F58',        // Contrasting blue text
-//   },
-//   // Add more genres here
-// ];
-
-// const GenresPage = () => {
-//   const [selectedGenre, setSelectedGenre] = useState(genres[0]); // Default to the first genre
-
-//   const handleGenreClick = (genre) => {
-//     setSelectedGenre(genre); // Update the selected genre when clicked
-//   };
-
-//   return (
-//     <div className="genres-page" style={{ backgroundColor: selectedGenre.backgroundColor }}>
-//       <h1 className="page-title" style={{ color: selectedGenre.textColor }}>
-//         Explore Anime Genres
-//       </h1>
-
-//       <div className="genres-tabs">
-//         {genres.map((genre) => (
-//           <button
-//             key={genre.id}
-//             className={`genre-tab ${selectedGenre.id === genre.id ? 'active' : ''}`}
-//             onClick={() => handleGenreClick(genre)}
-//             style={{ backgroundColor: selectedGenre.id === genre.id ? selectedGenre.textColor : '#fff' }}
-//           >
-//             {genre.name}
-//           </button>
-//         ))}
-//       </div>
-
-//       <div className="genre-description" style={{ color: selectedGenre.textColor }}>
-//         <h2>{selectedGenre.name}</h2>
-//         <p>{selectedGenre.description}</p>
-//       </div>
-
-//       <div className="anime-grid">
-//         <h3>Featured Anime in {selectedGenre.name}</h3>
-//         <div className="grid-container">
-//           {selectedGenre.anime.map((anime, index) => (
-//             <div key={index} className="anime-card">
-//               <Link to={`/anime/${anime.title}`} className="anime-link">
-//                 <img src={anime.image} alt={anime.title} className="anime-image" />
-//                 <p>{anime.title}</p>
-//               </Link>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default GenresPage;
-
-
-import React, { useState } from 'react';
-import './Categories.scss';
-import { Link } from 'react-router-dom';
-import NavBar from '../components/NavBar';
+import React, { useState } from "react";
+import "./Categories.scss";
+import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 const genres = [
   {
     id: 1,
-    name: 'Romantic',
-    description: 'Fall in love with heartwarming stories and touching moments.',
-    filters: ['Slow Burn', 'Love Triangle', 'Enemies to Lovers'],
+    name: "Romantic",
+    description: "Fall in love with heartwarming stories and touching moments.",
+    filters: ["Slow Burn", "Love Triangle", "Enemies to Lovers"],
     anime: [
-      { title: 'Your Name', image: '/assets/Categories/img1.jpg', tags: ['Slow Burn'] },
-      { title: 'Toradora', image: '/assets/Categories/img2.webp', tags: ['Enemies to Lovers'] },
-      { title: 'Kimi ni Todoke', image: '/assets/Categories/img3.webp', tags: ['Slow Burn'] },
-      { title: 'Clannad', image: '/assets/Categories/img4.jpg', tags: ['Love Triangle'] },
-      { title: 'Fruits Basket', image: '/assets/Categories/img5.jpg', tags: ['Slow Burn'] },
-      { title: 'Lovely★Complex', image: '/assets/Categories/img6.jpg', tags: ['Enemies to Lovers'] },
-      { title: 'Horimiya', image: '/assets/Categories/img7.jpg', tags: ['Slow Burn'] },
-      { title: 'Nana', image: '/assets/Categories/img8.webp', tags: ['Love Triangle'] },
-      { title: 'Your Name', image: '/assets/Categories/img1.jpg', tags: ['Slow Burn'] },
-      { title: 'Toradora', image: '/assets/Categories/img2.webp', tags: ['Enemies to Lovers'] },
-      { title: 'Your Name', image: '/assets/Categories/img1.jpg', tags: ['Slow Burn'] },
-      { title: 'Toradora', image: '/assets/Categories/img2.webp', tags: ['Enemies to Lovers'] },
-      { title: 'Nana', image: '/assets/Categories/img8.webp', tags: ['Love Triangle'] },
-      { title: 'Your Name', image: '/assets/Categories/img1.jpg', tags: ['Slow Burn'] },
-      { title: 'Kimi ni Todoke', image: '/assets/Categories/img3.webp', tags: ['Slow Burn'] },
+      {
+        title: "Your Name",
+        image: "/assets/Categories/img1.jpg",
+        tags: ["Slow Burn"],
+      },
+      {
+        title: "Toradora",
+        image: "/assets/Categories/img2.webp",
+        tags: ["Enemies to Lovers"],
+      },
+      {
+        title: "Kimi ni Todoke",
+        image: "/assets/Categories/img3.webp",
+        tags: ["Slow Burn"],
+      },
+      {
+        title: "Clannad",
+        image: "/assets/Categories/img4.jpg",
+        tags: ["Love Triangle"],
+      },
+      {
+        title: "Fruits Basket",
+        image: "/assets/Categories/img5.jpg",
+        tags: ["Slow Burn"],
+      },
+      {
+        title: "Lovely★Complex",
+        image: "/assets/Categories/img6.jpg",
+        tags: ["Enemies to Lovers"],
+      },
+      {
+        title: "Horimiya",
+        image: "/assets/Categories/img7.jpg",
+        tags: ["Slow Burn"],
+      },
+      {
+        title: "Nana",
+        image: "/assets/Categories/img8.webp",
+        tags: ["Love Triangle"],
+      },
+      {
+        title: "Your Name",
+        image: "/assets/Categories/img1.jpg",
+        tags: ["Slow Burn"],
+      },
+      {
+        title: "Toradora",
+        image: "/assets/Categories/img2.webp",
+        tags: ["Enemies to Lovers"],
+      },
+      {
+        title: "Your Name",
+        image: "/assets/Categories/img1.jpg",
+        tags: ["Slow Burn"],
+      },
+      {
+        title: "Toradora",
+        image: "/assets/Categories/img2.webp",
+        tags: ["Enemies to Lovers"],
+      },
+      {
+        title: "Nana",
+        image: "/assets/Categories/img8.webp",
+        tags: ["Love Triangle"],
+      },
+      {
+        title: "Your Name",
+        image: "/assets/Categories/img1.jpg",
+        tags: ["Slow Burn"],
+      },
+      {
+        title: "Kimi ni Todoke",
+        image: "/assets/Categories/img3.webp",
+        tags: ["Slow Burn"],
+      },
     ],
-    backgroundColor: '#FFE4E1',
-    textColor: '#FF4F58',
+    backgroundColor: "#FFE4E1",
+    textColor: "#FF4F58",
   },
   {
     id: 2,
-    name: 'Thriller',
-    description: 'Get ready for suspense, mystery, and mind games.',
-    filters: ['Psychological', 'Stalker', 'Plot Twist Heavy'],
+    name: "Thriller",
+    description: "Get ready for suspense, mystery, and mind games.",
+    filters: ["Psychological", "Stalker", "Plot Twist Heavy"],
     anime: [
-      { title: 'Death Note', image: '/assets/Categories/thriller1.jpeg', tags: ['Psychological'] },
-      { title: 'Steins;Gate', image: '/assets/Categories/thriller2.jpg', tags: ['Plot Twist Heavy'] },
-      { title: 'Erased', image: '/assets/Categories/thriller3.jpg', tags: ['Psychological'] },
-      { title: 'Monster', image: '/assets/Categories/thriller4.jpg', tags: ['Plot Twist Heavy'] },
-      { title: 'Paranoia Agent', image: '/assets/Categories/thriller5.jpg', tags: ['Stalker'] },
-      { title: 'Future Diary', image: '/assets/Categories/thriller6.jpg', tags: ['Stalker'] },
-      { title: 'Another', image: '/assets/Categories/thriller7.jpg', tags: ['Psychological'] },
-      { title: 'Tokyo Ghoul', image: '/assets/Categories/thriller8.jpg', tags: ['Plot Twist Heavy'] },
-      { title: 'Erased', image: '/assets/Categories/thriller3.jpg', tags: ['Psychological'] },
-      { title: 'Monster', image: '/assets/Categories/thriller4.jpg', tags: ['Plot Twist Heavy'] },
-      { title: 'Death Note', image: '/assets/Categories/thriller1.jpeg', tags: ['Psychological'] },
-      { title: 'Steins;Gate', image: '/assets/Categories/thriller2.jpg', tags: ['Plot Twist Heavy'] },
-      { title: 'Erased', image: '/assets/Categories/thriller3.jpg', tags: ['Psychological'] },
-      { title: 'Paranoia Agent', image: '/assets/Categories/thriller5.jpg', tags: ['Stalker'] },
-      { title: 'Future Diary', image: '/assets/Categories/thriller6.jpg', tags: ['Stalker'] },
+      {
+        title: "Death Note",
+        image: "/assets/Categories/thriller1.jpeg",
+        tags: ["Psychological"],
+      },
+      {
+        title: "Steins;Gate",
+        image: "/assets/Categories/thriller2.jpg",
+        tags: ["Plot Twist Heavy"],
+      },
+      {
+        title: "Erased",
+        image: "/assets/Categories/thriller3.jpg",
+        tags: ["Psychological"],
+      },
+      {
+        title: "Monster",
+        image: "/assets/Categories/thriller4.jpg",
+        tags: ["Plot Twist Heavy"],
+      },
+      {
+        title: "Paranoia Agent",
+        image: "/assets/Categories/thriller5.jpg",
+        tags: ["Stalker"],
+      },
+      {
+        title: "Future Diary",
+        image: "/assets/Categories/thriller6.jpg",
+        tags: ["Stalker"],
+      },
+      {
+        title: "Another",
+        image: "/assets/Categories/thriller7.jpg",
+        tags: ["Psychological"],
+      },
+      {
+        title: "Tokyo Ghoul",
+        image: "/assets/Categories/thriller8.jpg",
+        tags: ["Plot Twist Heavy"],
+      },
+      {
+        title: "Erased",
+        image: "/assets/Categories/thriller3.jpg",
+        tags: ["Psychological"],
+      },
+      {
+        title: "Monster",
+        image: "/assets/Categories/thriller4.jpg",
+        tags: ["Plot Twist Heavy"],
+      },
+      {
+        title: "Death Note",
+        image: "/assets/Categories/thriller1.jpeg",
+        tags: ["Psychological"],
+      },
+      {
+        title: "Steins;Gate",
+        image: "/assets/Categories/thriller2.jpg",
+        tags: ["Plot Twist Heavy"],
+      },
+      {
+        title: "Erased",
+        image: "/assets/Categories/thriller3.jpg",
+        tags: ["Psychological"],
+      },
+      {
+        title: "Paranoia Agent",
+        image: "/assets/Categories/thriller5.jpg",
+        tags: ["Stalker"],
+      },
+      {
+        title: "Future Diary",
+        image: "/assets/Categories/thriller6.jpg",
+        tags: ["Stalker"],
+      },
     ],
-    backgroundColor: '#222',
-    textColor: '#FF4F58',
+    backgroundColor: "#222",
+    textColor: "#FF4F58",
   },
   {
     id: 3,
-    name: 'Action',
-    description: 'High energy battles and thrilling fight scenes await.',
-    filters: ['Martial Arts', 'Superpowers', 'Battle Royale'],
+    name: "Action",
+    description: "High energy battles and thrilling fight scenes await.",
+    filters: ["Martial Arts", "Superpowers", "Battle Royale"],
     anime: [
-      { title: 'Attack on Titan', image: '/assets/Categories/action1.jpeg', tags: ['Battle Royale'] },
-      { title: 'Fullmetal Alchemist', image: '/assets/Categories/action2.avif', tags: ['Superpowers'] },
-      { title: 'Jujutsu Kaisen', image: '/assets/Categories/action3.jpg', tags: ['Martial Arts'] },
-      { title: 'Bleach', image: '/assets/Categories/action4.avif', tags: ['Superpowers'] },
-      { title: 'Demon Slayer', image: '/assets/Categories/action5.avif', tags: ['Martial Arts'] },
-      { title: 'My Hero Academia', image: '/assets/Categories/action6.jpg', tags: ['Superpowers'] },
-      { title: 'One Punch Man', image: '/assets/Categories/action7.jpg', tags: ['Battle Royale'] },
-      { title: 'Black Clover', image: '/assets/Categories/action8.jpg', tags: ['Martial Arts'] },
-      { title: 'Jujutsu Kaisen', image: '/assets/Categories/action3.jpg', tags: ['Martial Arts'] },
-      { title: 'Bleach', image: '/assets/Categories/action4.avif', tags: ['Superpowers'] },
-      { title: 'Attack on Titan', image: '/assets/Categories/action1.jpeg', tags: ['Battle Royale'] },
-      { title: 'Fullmetal Alchemist', image: '/assets/Categories/action2.avif', tags: ['Superpowers'] },
-      { title: 'Jujutsu Kaisen', image: '/assets/Categories/action3.jpg', tags: ['Martial Arts'] },
-      { title: 'My Hero Academia', image: '/assets/Categories/action6.jpg', tags: ['Superpowers'] },
-      { title: 'One Punch Man', image: '/assets/Categories/action7.jpg', tags: ['Battle Royale'] },
+      {
+        title: "Attack on Titan",
+        image: "/assets/Categories/action1.jpeg",
+        tags: ["Battle Royale"],
+      },
+      {
+        title: "Fullmetal Alchemist",
+        image: "/assets/Categories/action2.avif",
+        tags: ["Superpowers"],
+      },
+      {
+        title: "Jujutsu Kaisen",
+        image: "/assets/Categories/action3.jpg",
+        tags: ["Martial Arts"],
+      },
+      {
+        title: "Bleach",
+        image: "/assets/Categories/action4.avif",
+        tags: ["Superpowers"],
+      },
+      {
+        title: "Demon Slayer",
+        image: "/assets/Categories/action5.avif",
+        tags: ["Martial Arts"],
+      },
+      {
+        title: "My Hero Academia",
+        image: "/assets/Categories/action6.jpg",
+        tags: ["Superpowers"],
+      },
+      {
+        title: "One Punch Man",
+        image: "/assets/Categories/action7.jpg",
+        tags: ["Battle Royale"],
+      },
+      {
+        title: "Black Clover",
+        image: "/assets/Categories/action8.jpg",
+        tags: ["Martial Arts"],
+      },
+      {
+        title: "Jujutsu Kaisen",
+        image: "/assets/Categories/action3.jpg",
+        tags: ["Martial Arts"],
+      },
+      {
+        title: "Bleach",
+        image: "/assets/Categories/action4.avif",
+        tags: ["Superpowers"],
+      },
+      {
+        title: "Attack on Titan",
+        image: "/assets/Categories/action1.jpeg",
+        tags: ["Battle Royale"],
+      },
+      {
+        title: "Fullmetal Alchemist",
+        image: "/assets/Categories/action2.avif",
+        tags: ["Superpowers"],
+      },
+      {
+        title: "Jujutsu Kaisen",
+        image: "/assets/Categories/action3.jpg",
+        tags: ["Martial Arts"],
+      },
+      {
+        title: "My Hero Academia",
+        image: "/assets/Categories/action6.jpg",
+        tags: ["Superpowers"],
+      },
+      {
+        title: "One Punch Man",
+        image: "/assets/Categories/action7.jpg",
+        tags: ["Battle Royale"],
+      },
     ],
-    backgroundColor: '#87CEEB',
-    textColor: '#FF4F58',
-  }
+    backgroundColor: "#87CEEB",
+    textColor: "#FF4F58",
+  },
 ];
-
 const GenresPage = () => {
   const [selectedGenre, setSelectedGenre] = useState(genres[0]);
-  const [selectedFilter, setSelectedFilter] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   const filteredAnime = selectedFilter
-    ? selectedGenre.anime.filter(anime => anime.tags.includes(selectedFilter))
+    ? selectedGenre.anime.filter((anime) => anime.tags.includes(selectedFilter))
     : selectedGenre.anime;
 
   return (
     <div>
-      <NavBar/>
-      <div className="genres-page" style={{ backgroundColor: selectedGenre.backgroundColor ,marginTop:"67px"}}>
-      <h1 className="page-title" style={{ color: selectedGenre.textColor }}>
-        Explore Anime Genres
-      </h1>
+      <NavBar />
+      <div
+        className="genres-page"
+        style={{
+          backgroundColor: selectedGenre.backgroundColor,
+          marginTop: "67px",
+        }}
+      >
+        <h1 className="page-title" style={{ color: selectedGenre.textColor }}>
+          Explore Anime Genres
+        </h1>
 
-      <div className="genres-tabs">
-        {genres.map((genre) => (
-          <button
-            key={genre.id}
-            className={`genre-tab ${selectedGenre.id === genre.id ? 'active' : ''}`}
-            onClick={() => {
-              setSelectedGenre(genre);
-              setSelectedFilter('');
-            }}
-            style={{
-              backgroundColor: selectedGenre.id === genre.id ? selectedGenre.textColor : '#fff',
-              color: selectedGenre.id === genre.id ? '#fff' : '#000'
-            }}
-          >
-            {genre.name}
-          </button>
-        ))}
-      </div>
-
-      <div className="genre-description" style={{ color: selectedGenre.textColor }}>
-        <h2>{selectedGenre.name}</h2>
-        <p>{selectedGenre.description}</p>
-        <div className="genre-filters">
-          {selectedGenre.filters.map((filter, idx) => (
-            <span
-              key={idx}
-              className={`filter-pill ${selectedFilter === filter ? 'selected' : ''}`}
-              onClick={() =>
-                setSelectedFilter((prev) => (prev === filter ? '' : filter))
-              }
+        <div className="genres-tabs">
+          {genres.map((genre) => (
+            <button
+              key={genre.id}
+              className={`genre-tab ${
+                selectedGenre.id === genre.id ? "active" : ""
+              }`}
+              onClick={() => {
+                setSelectedGenre(genre);
+                setSelectedFilter("");
+              }}
+              style={{
+                backgroundColor:
+                  selectedGenre.id === genre.id
+                    ? selectedGenre.textColor
+                    : "#fff",
+                color: selectedGenre.id === genre.id ? "#fff" : "#000",
+              }}
             >
-              {filter}
-            </span>
+              {genre.name}
+            </button>
           ))}
         </div>
-      </div>
 
-      <div className="anime-grid">
-        <h3>Featured Anime in {selectedGenre.name}</h3>
-        <div className="grid-container">
-          {filteredAnime.map((anime, index) => (
-            <div key={index} className="anime-card">
-              <Link to={`/framepage/${anime.title}`} className="anime-link">
-                <img src={anime.image} alt={anime.title} className="anime-image" />
-                <p>{anime.title}</p>
-              </Link>
-            </div>
-          ))}
+        <div
+          className="genre-description"
+          style={{ color: selectedGenre.textColor }}
+        >
+          <h2>{selectedGenre.name}</h2>
+          <p>{selectedGenre.description}</p>
+          <div className="genre-filters">
+            {selectedGenre.filters.map((filter, idx) => (
+              <span
+                key={idx}
+                className={`filter-pill ${
+                  selectedFilter === filter ? "selected" : ""
+                }`}
+                onClick={() =>
+                  setSelectedFilter((prev) => (prev === filter ? "" : filter))
+                }
+              >
+                {filter}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="anime-grid">
+          <h3 style={{ color: "#FF4F58" }}>
+            Featured Anime in {selectedGenre.name}
+          </h3>
+          <div className="grid-container">
+            {filteredAnime.map((anime, index) => (
+              <div key={index} className="anime-card">
+                <Link to={`/framepage/${anime.title}`} className="anime-link">
+                  <img
+                    src={anime.image}
+                    alt={anime.title}
+                    className="anime-image"
+                  />
+                  <p>{anime.title}</p>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
-
 export default GenresPage;

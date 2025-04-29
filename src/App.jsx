@@ -1,41 +1,6 @@
-
-// import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import { AuthProvider, useAuth } from './Context/AuthContext'; // Import AuthContext
-// import Login from './pages/Login';
-// import Signup from './pages/SignUp';
-// import Subscription from './pages/Subscription';
-// import Payment from './pages/Payment';
-// import Categories from './pages/Categories';
-
-// const ProtectedRoute = ({ element }) => {
-//   const { isAuthenticated } = useAuth();
-//   return isAuthenticated ? element : <Login />;
-// };
-
-// function App() {
-//   return (
-//     <AuthProvider>
-//       <Router>
-//         <Routes>
-//           <Route path="/" element={<Login />} />
-//           <Route path="/signup" element={<Signup />} />
-//           <Route path="/subscription" element={<ProtectedRoute element={<Subscription />} />} />
-//           <Route path="/categories" element={<ProtectedRoute element={<Categories />} />} />
-//           <Route path="/payment" element={<ProtectedRoute element={<Payment />} />} />
-//         </Routes>
-//       </Router>
-//     </AuthProvider>
-//   );
-// }
-
-// export default App;
-
-
 import React from 'react';
 import './App.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider, useAuth } from './Context/AuthContext'; // Import AuthContext
 import Login from './pages/Login';
 import Signup from './pages/SignUp';
 import Subscription from './pages/Subscription';
@@ -53,15 +18,19 @@ import History from './components/History';
 import AccountSettings from './components/AccountSettings';
 import DownloadPage from './components/DownloadPage';
 import SignOut from './components/SignOut';
+import Player from './pages/Player';
+import Plan from './pages/Plan';
+import Home from'./components/Home';
+import ForgotPassword from './pages/ForgotPassword';
+import OtpPage from './pages/Otp';
+import ResetPasswordPage from './pages/ResetPassword';
 
-const ProtectedRoute = ({ element }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? element : <Login />;
-};
+
+
 
 function App() {
   return (
-    <AuthProvider>
+    
       <Router>
         <Routes>
           <Route path="/" element={<Signup />} />
@@ -74,6 +43,7 @@ function App() {
           <Route path="/wishlistpage"  element={<WishlistPage />} />
           <Route path="/framepage" element={<FramePage />} />
           <Route path="/framepage/:title" element={<FramePage />} />
+          <Route path="player" element={<Player />} />
 
             <Route path="/profilepage" element={<ProfilePage/>}/>
             <Route path="/editprofile" element={<EditProfile/>}/>
@@ -82,23 +52,23 @@ function App() {
             <Route path="/accountsettings" element={<AccountSettings/>}/>
             <Route path="/downloadpage" element={<DownloadPage/>}/>
             <Route path="/signout" element={<SignOut/>}/>
+            <Route path="/Plan" element={<Plan/>}/>
+            <Route path="/home" element={<Home/>}/>
+            <Route path="/forgotpassword" element={<ForgotPassword/>}/>
+            <Route path="/otppage" element={<OtpPage/>}/>
+            <Route path="/reset-password" element={<ResetPasswordPage/>}/>
             
 
 
-              <Route path='*' element={<PageNotFound/>}/>
-         <Route path="/romanticThemeHome" element={<RomanticThemeHome/>}/>
-          <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/>
+             
+         {/* <Route path="/romanticThemeHome" element={<RomanticThemeHome/>}/>
+          <Route path="/thrillerThemeHome" element={<ThrillerThemeHome/>}/> */}
 
 
 
           <Route path='*' element={<PageNotFound/>}/>
-
-
         </Routes>
       </Router>
-    </AuthProvider>
-
   );
 }
-
 export default App;

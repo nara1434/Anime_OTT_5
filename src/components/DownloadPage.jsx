@@ -6,21 +6,18 @@ const DownloadPage = () => {
   const [videoUrl] = useState('https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4'); 
   const navigate = useNavigate(); 
 
-  // Simulating the download action
   const handleDownload = () => {
     setIsDownloading(true); 
 
-    // Simulate downloading process with a setTimeout (This is just for demo)
     setTimeout(() => {
-      setIsDownloading(false); // Reset after "download"
-      alert('Download Complete!'); // Show a message after the download finishes
-    }, 3000); // Simulate a download taking 3 seconds
+      setIsDownloading(false); 
+      alert('Download Complete!'); 
+    }, 3000); 
   };
 
-  // Inline Styles for responsive design and button alignment
   const styles = {
     container: {
-      backgroundColor: 'black',
+      backgroundColor: '#ffeef2',
       color: 'white',
       display: 'flex',
       flexDirection: 'column',
@@ -33,9 +30,11 @@ const DownloadPage = () => {
     heading: {
       fontSize: '24px',
       marginBottom: '-20px',
+      color: '#d87093'
     },
+    
     downloadButton: {
-      backgroundColor: '#4CAF50',
+      backgroundColor: '#d87093',
       color: 'white',
       border: 'none',
       padding: '15px 30px',
@@ -46,7 +45,7 @@ const DownloadPage = () => {
       width: '200px',
     },
     backButton: {
-      backgroundColor: '#007BFF',
+      background: 'linear-gradient(45deg, #FFB6C1 30%, #000000 90%)',
       color: 'white',
       border: 'none',
       padding: '10px 20px',
@@ -54,12 +53,13 @@ const DownloadPage = () => {
       cursor: 'pointer',
       marginTop: '20px',
       fontSize: '16px',
+      fontWeight:'bold',
       width: '200px',
     },
     downloadText: {
       fontSize: '18px',
       marginTop: '20px',
-      color: 'white',
+      color: 'black',
     },
     videoContainer: {
       marginTop: '20px',
@@ -81,35 +81,30 @@ const DownloadPage = () => {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>Download OTT Content</h1>
+      <h1 style={styles.heading}>Download OTT Content</h1><br></br>
 
-      {/* Video Section */}
       <div style={styles.videoContainer}>
         <video controls style={styles.video}>
           <source src={videoUrl} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <p>
+        <p style={{color: 'black'}}>
           You can download the video from the link below.
         </p>
         <a href={videoUrl} download style={styles.downloadLink}>
           Click here to download the video
         </a>
-      </div>
+      </div><br></br>
 
-      {/* Download Button */}
       <button onClick={handleDownload} style={styles.downloadButton} disabled={isDownloading}>
         {isDownloading ? 'Downloading...' : 'Download Now'}
       </button>
 
-      {/* If download is complete */}
       <p style={styles.downloadText}>
-        {isDownloading ? 'Please wait, your download is in progress...' : 'Click to download the latest content.'}
       </p>
 
-      {/* Back Button to navigate to the User Page */}
       <button onClick={() => navigate('/ProfilePage')} style={styles.backButton}>
-        Back to User Page
+        Back to Profile Page
       </button>
     </div>
   );
