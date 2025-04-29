@@ -78,6 +78,7 @@ const ForgotPassword = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    background: "linear-gradient(to right, #e6f7ff)",
     padding: isMobile ? "20px" : "0",
   };
   const boxStyle = {

@@ -86,6 +86,51 @@ const genres = [
         image: "/assets/Categories/img3.webp",
         tags: ["Slow Burn"],
       },
+      {
+        title: "Toradora",
+        image: "/assets/Categories/img2.webp",
+        tags: ["Love Triangle"],
+      },
+      {
+        title: "Kimi ni Todoke",
+        image: "/assets/Categories/img3.webp",
+        tags: ["Love Triangle"],
+      },
+      {
+        title: "Death Note",
+        image: "/assets/Categories/thriller1.jpeg",
+        tags: ["Love Triangle"],
+      },
+      {
+        title: "Steins;Gate",
+        image: "/assets/Categories/thriller2.jpg",
+        tags: ["Love Triangle"],
+      },
+      {
+        title: "Erased",
+        image: "/assets/Categories/thriller3.jpg",
+        tags: ["Love Triangle"],
+      },
+      {
+        title: "Another",
+        image: "/assets/Categories/thriller7.jpg",
+        tags: ["Enemies to Lovers"],
+      },
+      {
+        title: "Tokyo Ghoul",
+        image: "/assets/Categories/thriller8.jpg",
+        tags: ["Enemies to Lovers"],
+      },
+      {
+        title: "Erased",
+        image: "/assets/Categories/thriller3.jpg",
+        tags: ["Enemies to Lovers"],
+      },
+      {
+        title: "Monster",
+        image: "/assets/Categories/thriller4.jpg",
+        tags: ["Enemies to Lovers"],
+      },
     ],
     backgroundColor: "#FFE4E1",
     textColor: "#FF4F58",
@@ -117,6 +162,11 @@ const genres = [
         tags: ["Plot Twist Heavy"],
       },
       {
+        title: "Monster",
+        image: "/assets/Categories/thriller4.jpg",
+        tags: ["Plot Twist Heavy"],
+      },
+      {
         title: "Paranoia Agent",
         image: "/assets/Categories/thriller5.jpg",
         tags: ["Stalker"],
@@ -137,19 +187,34 @@ const genres = [
         tags: ["Plot Twist Heavy"],
       },
       {
+        title: "Tokyo Ghoul",
+        image: "/assets/Categories/thriller8.jpg",
+        tags: ["Stalker"],
+      },
+      {
+        title: "Erased",
+        image: "/assets/Categories/thriller3.jpg",
+        tags: ["Stalker"],
+      },
+      {
         title: "Erased",
         image: "/assets/Categories/thriller3.jpg",
         tags: ["Psychological"],
       },
       {
+        title: "Erased",
+        image: "/assets/Categories/thriller3.jpg",
+        tags: ["Stalker"],
+      },
+      {
+        title: "Erased",
+        image: "/assets/Categories/thriller3.jpg",
+        tags: ["Stalker"],
+      },
+      {
         title: "Monster",
         image: "/assets/Categories/thriller4.jpg",
         tags: ["Plot Twist Heavy"],
-      },
-      {
-        title: "Death Note",
-        image: "/assets/Categories/thriller1.jpeg",
-        tags: ["Psychological"],
       },
       {
         title: "Steins;Gate",
@@ -164,7 +229,32 @@ const genres = [
       {
         title: "Paranoia Agent",
         image: "/assets/Categories/thriller5.jpg",
+        tags: ["Psychological"],
+      },
+      {
+        title: "Paranoia Agent",
+        image: "/assets/Categories/thriller5.jpg",
+        tags: ["Plot Twist Heavy"],
+      },
+      {
+        title: "Paranoia Agent",
+        image: "/assets/Categories/thriller5.jpg",
         tags: ["Stalker"],
+      },
+      {
+        title: "Future Diary",
+        image: "/assets/Categories/thriller6.jpg",
+        tags: ["Psychological"],
+      },
+      {
+        title: "Future Diary",
+        image: "/assets/Categories/thriller6.jpg",
+        tags: ["Plot Twist Heavy"],
+      },
+      {
+        title: "Future Diary",
+        image: "/assets/Categories/thriller6.jpg",
+        tags: ["Psychological"],
       },
       {
         title: "Future Diary",
@@ -187,6 +277,16 @@ const genres = [
         tags: ["Battle Royale"],
       },
       {
+        title: "Attack on Titan",
+        image: "/assets/Categories/action1.jpeg",
+        tags: ["Superpowers"],
+      },
+      {
+        title: "Jujutsu Kaisen",
+        image: "/assets/Categories/action3.jpg",
+        tags: ["Superpowers"],
+      },
+      {
         title: "Fullmetal Alchemist",
         image: "/assets/Categories/action2.avif",
         tags: ["Superpowers"],
@@ -202,8 +302,18 @@ const genres = [
         tags: ["Superpowers"],
       },
       {
+        title: "Bleach",
+        image: "/assets/Categories/action4.avif",
+        tags: ["Martial Arts"],
+      },
+      {
         title: "Demon Slayer",
         image: "/assets/Categories/action5.avif",
+        tags: ["Martial Arts"],
+      },
+      {
+        title: "One Punch Man",
+        image: "/assets/Categories/action7.jpg",
         tags: ["Martial Arts"],
       },
       {
@@ -216,6 +326,27 @@ const genres = [
         image: "/assets/Categories/action7.jpg",
         tags: ["Battle Royale"],
       },
+      {
+        title: "My Hero Academia",
+        image: "/assets/Categories/action6.jpg",
+        tags: ["Battle Royale"],
+      },
+      {
+        title: "Black Clover",
+        image: "/assets/Categories/action8.jpg",
+        tags: ["Battle Royale"],
+      },
+      {
+        title: "Jujutsu Kaisen",
+        image: "/assets/Categories/action3.jpg",
+        tags: ["Battle Royale"],
+      },
+      {
+        title: "Bleach",
+        image: "/assets/Categories/action4.avif",
+        tags: ["Battle Royale"],
+      },
+    
       {
         title: "Black Clover",
         image: "/assets/Categories/action8.jpg",
@@ -239,6 +370,11 @@ const genres = [
       {
         title: "Fullmetal Alchemist",
         image: "/assets/Categories/action2.avif",
+        tags: ["Superpowers"],
+      },
+      {
+        title: "Jujutsu Kaisen",
+        image: "/assets/Categories/action3.jpg",
         tags: ["Superpowers"],
       },
       {

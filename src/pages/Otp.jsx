@@ -90,6 +90,7 @@ const OtpPage = () => {
     alignItems: "center",
     justifyContent: "center",
     padding: "20px",
+    background: "linear-gradient(to right, #e6f7ff)",
   };
   const boxStyle = {
     width: "100%",
