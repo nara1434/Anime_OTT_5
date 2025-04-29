@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Subscription.scss';
-import NavBar from '../components/NavBar';
+import NavBar from '../Components/NavBar';
+import Footer from '../Components/Footer';
  
 const plans = [
   {
@@ -65,6 +66,7 @@ const plans = [
         ))}
       </div>
     </div>
+    <Footer/>
     </div>
   );
 };

@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const OtpPage = () => {
-  const [otp, setOtp] = useState(['', '', '', '']);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const inputRefs = useRef([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const email = location.state?.email || '';
-
+  const email = location.state?.email || "";
   const handleChange = (index, value) => {
     if (!/^\d*$/.test(value)) return;
     const newOtp = [...otp];
@@ -24,29 +23,26 @@ const OtpPage = () => {
       inputRefs.current[index - 1].focus();
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (otp.join('').length !== 4) {
-      setError('Please enter all 4 digits');
-      setSuccess('');
+    if (otp.join("").length !== 4) {
+      setError("Please enter all 4 digits");
+      setSuccess("");
     } else {
-      setSuccess('OTP Verified!');
-      setError('');
-      toast.success('🎉 OTP has been verified!', {
+      setSuccess("OTP Verified!");
+      setError("");
+      toast.success("🎉 OTP has been verified!", {
         position: "top-center",
         autoClose: 3000,
       });
       setTimeout(() => {
-        navigate('/reset-password', { state: { email } });
+        navigate("/reset-password", { state: { email } });
       }, 1000);
     }
   };
-
   const handleChangeEmail = () => {
-    navigate('/forgotpassword');
+    navigate("/forgotpassword");
   };
-
   const containerStyle = {
     width: "100%",
     height: "100vh",
@@ -56,12 +52,12 @@ const OtpPage = () => {
     flexDirection: "row",
     overflow: "hidden",
   };
-
   const leftStyle = {
     flex: 1,
-    backgroundImage: window.innerWidth > 768 
-      ? `linear-gradient(to right, rgba(255, 192, 203, 0.4), rgba(0, 0, 0, 0.6)), url('/assets/Categories/img7.jpg')`
-      : 'none',
+    backgroundImage:
+      window.innerWidth > 768
+        ? `linear-gradient(to right, rgba(255, 192, 203, 0.4), rgba(0, 0, 0, 0.6)), url('/assets/Categories/img7.jpg')`
+        : "none",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "cover",
@@ -70,7 +66,6 @@ const OtpPage = () => {
     alignItems: "center",
     justifyContent: "center",
   };
-
   const brandingTextStyle = {
     position: "relative",
     zIndex: 1,
@@ -80,7 +75,6 @@ const OtpPage = () => {
     fontWeight: "bold",
     padding: "20px",
   };
-
   const overlayStyle = {
     position: "absolute",
     top: 0,
@@ -90,15 +84,14 @@ const OtpPage = () => {
     backgroundColor: "rgba(0,0,0,0.4)",
     zIndex: 0,
   };
-
   const rightStyle = {
     flex: 1,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     padding: "20px",
+    background: "linear-gradient(to right, #e6f7ff)",
   };
-
   const boxStyle = {
     width: "100%",
     maxWidth: "400px",
@@ -111,20 +104,17 @@ const OtpPage = () => {
     gap: "15px",
     textAlign: "center",
   };
-
   const headingStyle = {
     marginBottom: "5px",
     color: "#f06292",
     fontSize: "24px",
   };
-
   const otpBox = {
     display: "flex",
     justifyContent: "center",
     gap: "15px",
     margin: "10px 0",
   };
-
   const otpInput = {
     width: "50px",
     height: "50px",
@@ -133,7 +123,6 @@ const OtpPage = () => {
     border: "2px solid #ffb6c1",
     borderRadius: "10px",
   };
-
   const buttonStyle = {
     padding: "12px",
     background: "#f06292",
@@ -144,26 +133,22 @@ const OtpPage = () => {
     cursor: "pointer",
     marginTop: "10px",
   };
-
   const errorStyle = {
     color: "red",
     fontSize: "13px",
-    marginTop: "8px"
+    marginTop: "8px",
   };
-
   const successStyle = {
     color: "green",
     fontSize: "13px",
-    marginTop: "8px"
+    marginTop: "8px",
   };
-
   const changeEmailTextStyle = {
     color: "#f06292",
     fontWeight: "bold",
     cursor: "pointer",
     marginTop: "15px",
   };
-
   return (
     <div style={containerStyle}>
       <div style={leftStyle}>
@@ -193,13 +178,13 @@ const OtpPage = () => {
               />
             ))}
           </div>
-          <button type="submit" style={buttonStyle}>Verify OTP</button>
+          <button type="submit" style={buttonStyle}>
+            Verify OTP
+          </button>
           {error && <div style={errorStyle}>{error}</div>}
           {success && <div style={successStyle}>{success}</div>}
-          <span 
-            style={changeEmailTextStyle} 
-            onClick={handleChangeEmail}>
-             Change Email
+          <span style={changeEmailTextStyle} onClick={handleChangeEmail}>
+            Change Email
           </span>
         </form>
       </div>
@@ -207,5 +192,4 @@ const OtpPage = () => {
     </div>
   );
 };
-
 export default OtpPage;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./WishlistPage.scss"; 
-import NavBar from "../components/NavBar";
+import NavBar from "../Components/NavBar";
 
 const WishlistPage = () => {
   const navigate = useNavigate();

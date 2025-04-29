@@ -159,7 +159,7 @@ const NavBar = () => {
         <div className="container-fluid">
           <span
             className="navbar-brand"
-            onClick={() => nav("/romanticThemeHome")}
+            onClick={() => nav("/home")}
             style={{
               cursor: "pointer",
               fontWeight: 'bold',

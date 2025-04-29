@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Payment({ trial }) {
+  const navigate = useNavigate();
   const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: "",
     expiry: "",
@@ -13,15 +14,12 @@ function Payment({ trial }) {
     upiId: "",
   });
   const [paymentMethod, setPaymentMethod] = useState("card");
-const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-if (name === "name") {
-      const alphaOnly = value.replace(/[^a-zA-Z\s]/g, ""); // Only letters and space
+    if (name === "name") {
+      const alphaOnly = value.replace(/[^a-zA-Z\s]/g, "");
       setPaymentDetails({ ...paymentDetails, [name]: alphaOnly });
-    } else if (name === "cardNumber") {
-      const numericValue = value.replace(/\D/g, "");
-      setPaymentDetails({ ...paymentDetails, [name]: numericValue });
-    } else if (name === "cvv") {
+    } else if (name === "cardNumber" || name === "cvv") {
       const numericValue = value.replace(/\D/g, "");
       setPaymentDetails({ ...paymentDetails, [name]: numericValue });
     } else if (name === "expiry") {
@@ -37,35 +35,27 @@ if (name === "name") {
       setPaymentDetails({ ...paymentDetails, [name]: value });
     }
   };
-  
-const validateCardNumber = (num) => num.length === 16;
- const validateExpiry = (expiry) => {
+  const validateCardNumber = (num) => num.length === 16;
+  const validateExpiry = (expiry) => {
     if (!expiry || expiry.length !== 5 || !expiry.includes("/")) return false;
     const [month, year] = expiry.split("/");
     const mm = parseInt(month);
     const yy = parseInt(year);
     return mm >= 1 && mm <= 12 && !isNaN(yy);
   };
-const validateCVV = (cvv) => cvv.length === 3;
-const validateUPI = (upiId) => {
-    const patterns = {
-      phonepay: /^[a-zA-Z0-9._%+-]+@phonepe$/,
-      googlepay: /^[a-zA-Z0-9._%+-]+@gpay$/,
-      paytm: /^[a-zA-Z0-9._%+-]+@paytm$/,
-    };
-    return patterns[paymentMethod]?.test(upiId) || false;
-  };
-const handleSubmit = (e) => {
+  const validateCVV = (cvv) => cvv.length === 3;
+  const validateUPI = (upiId) => /^[a-zA-Z0-9._%+-]+@[\w]+$/.test(upiId);
+  const handleSubmit = (e) => {
     e.preventDefault();
-if (paymentDetails.name.trim() === "") {
+    if (paymentDetails.name.trim() === "") {
       toast.error("Name is required.");
       return;
     }
-if (!/^[a-zA-Z\s]+$/.test(paymentDetails.name)) {
+    if (!/^[a-zA-Z\s]+$/.test(paymentDetails.name)) {
       toast.error("Name must contain only letters.");
       return;
     }
-if (paymentMethod === "card") {
+    if (paymentMethod === "card") {
       if (!validateCardNumber(paymentDetails.cardNumber)) {
         toast.error("Card number must be exactly 16 digits.");
         return;
@@ -78,42 +68,39 @@ if (paymentMethod === "card") {
         toast.error("CVV must be exactly 3 digits.");
         return;
       }
-    } else if (!validateUPI(paymentDetails.upiId)) {
-      toast.error(`Invalid UPI ID for ${paymentMethod}.`);
-      return;
+    } else {
+      if (!validateUPI(paymentDetails.upiId)) {
+        toast.error("Invalid UPI ID format. Should contain '@'.");
+        return;
+      }
     }
-if (trial) {
+    if (trial) {
       toast.success("Free Trial Registered!");
     } else {
-      const method = paymentMethod === "card"
-        ? "Card"
-        : paymentMethod === "phonepay"
-        ? "PhonePe"
-        : paymentMethod === "googlepay"
-        ? "Google Pay"
-        : "Paytm";
-      toast.success(`Payment successful with ${method}`);
+      toast.success(
+        `Payment successful with ${paymentMethod === "card" ? "Card" : "UPI"}`
+      );
     }
-console.log("Payment Submitted:", paymentDetails, "Method:", paymentMethod);
+    console.log("Payment Submitted:", paymentDetails, "Method:", paymentMethod);
+    setTimeout(() => {
+      navigate("/subscription");
+    }, 2000);
   };
- const optionStyle = {
-    padding: "8px 15px",
+  const optionStyle = {
+    padding: "10px 80px",
     border: "2px solid #fff",
     borderRadius: "10px",
     cursor: "pointer",
-    margin: "5px",
-    flex: "1",
-    textAlign: "center",
+    margin: "5px 10px",
     color: "#fff",
     backgroundColor: "#d81b60",
   };
-const selectedStyle = {
+  const selectedStyle = {
     ...optionStyle,
-    borderColor: "#28A745",
     backgroundColor: "#333",
     fontWeight: "bold",
   };
-const inputStyle = {
+  const inputStyle = {
     width: "100%",
     padding: "10px",
     marginTop: "8px",
@@ -123,7 +110,7 @@ const inputStyle = {
     borderRadius: "4px",
     boxSizing: "border-box",
   };
-return (
+  return (
     <div
       style={{
         padding: "20px",
@@ -140,7 +127,7 @@ return (
       <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
         {trial ? "Free Trial Registration" : "Payment"}
       </h1>
-<form
+      <form
         onSubmit={handleSubmit}
         style={{
           display: "flex",
@@ -161,7 +148,7 @@ return (
             style={inputStyle}
           />
         </label>
-{trial ? (
+        {trial ? (
           <label>
             Email:
             <input
@@ -177,7 +164,7 @@ return (
         ) : (
           <>
             <div style={{ margin: "20px 0" }}>
-              <p style={{ marginBottom: "10px", color: "#fff" }}>
+              <p style={{ marginBottom: "10px", color: "#333" }}>
                 Select Payment Method:
               </p>
               <div
@@ -187,7 +174,7 @@ return (
                   justifyContent: "center",
                 }}
               >
-                {["card", "phonepay", "googlepay", "paytm"].map((method) => (
+                {["card", "upi"].map((method) => (
                   <div
                     key={method}
                     style={
@@ -195,18 +182,12 @@ return (
                     }
                     onClick={() => setPaymentMethod(method)}
                   >
-                    {method === "card"
-                      ? "Card"
-                      : method === "phonepay"
-                      ? "PhonePe"
-                      : method === "googlepay"
-                      ? "Google Pay"
-                      : "Paytm"}
+                    {method === "card" ? "Card" : "UPI"}
                   </div>
                 ))}
               </div>
             </div>
- {paymentMethod === "card" ? (
+            {paymentMethod === "card" ? (
               <>
                 <label>
                   Card Number:
@@ -257,13 +238,14 @@ return (
                   value={paymentDetails.upiId}
                   onChange={handleChange}
                   required
-                  placeholder={`yourupi@${paymentMethod}`}
+                  placeholder="yourupi@bank"
                   style={inputStyle}
                 />
               </label>
             )}
           </>
-        )}<button
+        )}
+        <button
           type="submit"
           style={{
             padding: "12px",
@@ -278,9 +260,11 @@ return (
           {trial ? "Register for Free Trial" : "Submit Payment"}
         </button>
       </form>
-
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <Link to="/subscription" style={{ textDecoration: "none", color: "#007BFF" }}>
+        <Link
+          to="/subscription"
+          style={{ textDecoration: "none", color: "#007BFF" }}
+        >
           Back to Subscription
         </Link>
       </div>
