@@ -9,7 +9,11 @@ const Footer = () => {
             <div className="row pt-5">
                 <div className="col-12 col-sm-12 col-md-4 col-lg-4">
                 <ul style={{listStyle:"none"}}>
-                    <li className='mb-3 fs-3 text-danger'>Anime</li>
+                    <li className='mb-3 fs-3'style={{
+ background: 'linear-gradient(45deg, #FFB6C1 30%, #000000 90%)',
+ WebkitBackgroundClip: 'text',
+ WebkitTextFillColor: 'transparent',
+  }}>Anime OTT</li>
                     <li className='mb-3'>Our anime OTT platform offers immersive themes tailored to every genre.</li>
                     <li className='mb-3'>Each section transforms visually and emotionally, letting fans dive deep into the unique mood of every story.</li>
                     <li>Explore anime like never before, genre by genre.</li>
