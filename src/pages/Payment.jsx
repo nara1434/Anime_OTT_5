@@ -1,10 +1,14 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Payment({ trial }) {
+function Payment({ trial, subscriptionAmount }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { state } = location;
+  const selectedPlan = state?.selectedPlan;
+
   const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: "",
     expiry: "",
@@ -12,8 +16,24 @@ function Payment({ trial }) {
     name: "",
     email: "",
     upiId: "",
+    amount: subscriptionAmount || selectedPlan?.price?.split('/')[0]?.replace('$', ''),
   });
   const [paymentMethod, setPaymentMethod] = useState("card");
+
+  useEffect(() => {
+    if (subscriptionAmount) {
+      setPaymentDetails((prevDetails) => ({
+        ...prevDetails,
+        amount: subscriptionAmount,
+      }));
+    } else if (selectedPlan?.price) {
+      setPaymentDetails((prevDetails) => ({
+        ...prevDetails,
+        amount: selectedPlan.price.split('/')[0]?.replace('$', ''),
+      }));
+    }
+  }, [subscriptionAmount, selectedPlan]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "name") {
@@ -31,10 +51,14 @@ function Payment({ trial }) {
       if (formatted.length <= 5) {
         setPaymentDetails({ ...paymentDetails, [name]: formatted });
       }
+    } else if (name === "amount") {
+      const numericValue = value.replace(/\D/g, "");
+      setPaymentDetails({ ...paymentDetails, [name]: numericValue });
     } else {
       setPaymentDetails({ ...paymentDetails, [name]: value });
     }
   };
+
   const validateCardNumber = (num) => num.length === 16;
   const validateExpiry = (expiry) => {
     if (!expiry || expiry.length !== 5 || !expiry.includes("/")) return false;
@@ -45,35 +69,69 @@ function Payment({ trial }) {
   };
   const validateCVV = (cvv) => cvv.length === 3;
   const validateUPI = (upiId) => /^[a-zA-Z0-9._%+-]+@[\w]+$/.test(upiId);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    let hasErrors = false;
+    const errors = {};
+
     if (paymentDetails.name.trim() === "") {
-      toast.error("Name is required.");
-      return;
+      errors.name = "Name is required";
+      hasErrors = true;
+    } else if (!/^[a-zA-Z\s]+$/.test(paymentDetails.name)) {
+      errors.name = "Name must contain only letters";
+      hasErrors = true;
     }
-    if (!/^[a-zA-Z\s]+$/.test(paymentDetails.name)) {
-      toast.error("Name must contain only letters.");
-      return;
+
+    if (trial && paymentDetails.email.trim() === "") {
+      errors.email = "Email is required for free trial";
+      hasErrors = true;
+    } else if (trial && !/\S+@\S+\.\S+/.test(paymentDetails.email)) {
+      errors.email = "Invalid email format";
+      hasErrors = true;
     }
+
     if (paymentMethod === "card") {
-      if (!validateCardNumber(paymentDetails.cardNumber)) {
-        toast.error("Card number must be exactly 16 digits.");
-        return;
+      if (paymentDetails.cardNumber.trim() === "") {
+        errors.cardNumber = "Card number is required";
+        hasErrors = true;
+      } else if (!validateCardNumber(paymentDetails.cardNumber)) {
+        errors.cardNumber = "Card number must be exactly 16 digits";
+        hasErrors = true;
       }
-      if (!validateExpiry(paymentDetails.expiry)) {
-        toast.error("Invalid expiry format. Use MM/YY.");
-        return;
+      if (paymentDetails.expiry.trim() === "") {
+        errors.expiry = "Expiry date is required";
+        hasErrors = true;
+      } else if (!validateExpiry(paymentDetails.expiry)) {
+        errors.expiry = "Invalid expiry format. Use MM/YY";
+        hasErrors = true;
       }
-      if (!validateCVV(paymentDetails.cvv)) {
-        toast.error("CVV must be exactly 3 digits.");
-        return;
+      if (paymentDetails.cvv.trim() === "") {
+        errors.cvv = "CVV is required";
+        hasErrors = true;
+      } else if (!validateCVV(paymentDetails.cvv)) {
+        errors.cvv = "CVV must be exactly 3 digits";
+        hasErrors = true;
       }
-    } else {
-      if (!validateUPI(paymentDetails.upiId)) {
-        toast.error("Invalid UPI ID format. Should contain '@'.");
-        return;
+    } else if (paymentMethod === "upi") {
+      if (paymentDetails.upiId.trim() === "") {
+        errors.upiId = "UPI ID is required";
+        hasErrors = true;
+      } else if (!validateUPI(paymentDetails.upiId)) {
+        errors.upiId = "Invalid UPI ID format. Should contain '@'";
+        hasErrors = true;
       }
     }
+
+    if (hasErrors) {
+      let errorMessage = "Please fill out the following fields:\n";
+      for (const key in errors) {
+        errorMessage += `- ${errors[key]}\n`;
+      }
+      toast.error(errorMessage);
+      return;
+    }
+
     if (trial) {
       toast.success("Free Trial Registered!");
     } else {
@@ -81,11 +139,12 @@ function Payment({ trial }) {
         `Payment successful with ${paymentMethod === "card" ? "Card" : "UPI"}`
       );
     }
-    console.log("Payment Submitted:", paymentDetails, "Method:", paymentMethod);
+    console.log("Payment Submitted:", paymentDetails, "Method:", paymentMethod, "Selected Plan:", selectedPlan);
     setTimeout(() => {
       navigate("/subscription");
     }, 2000);
   };
+
   const optionStyle = {
     padding: "10px 80px",
     border: "2px solid #fff",
@@ -95,11 +154,13 @@ function Payment({ trial }) {
     color: "#fff",
     backgroundColor: "#d81b60",
   };
+
   const selectedStyle = {
     ...optionStyle,
     backgroundColor: "#333",
     fontWeight: "bold",
   };
+
   const inputStyle = {
     width: "100%",
     padding: "10px",
@@ -110,6 +171,7 @@ function Payment({ trial }) {
     borderRadius: "4px",
     boxSizing: "border-box",
   };
+
   return (
     <div
       style={{
@@ -127,6 +189,14 @@ function Payment({ trial }) {
       <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
         {trial ? "Free Trial Registration" : "Payment"}
       </h1>
+      {selectedPlan && !trial && (
+        <div style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
+          <p style={{ fontWeight: "bold", fontSize: "1.2rem" }}>
+            Selected Plan: {selectedPlan.name}
+          </p>
+          <p>Price: {selectedPlan.price}</p>
+        </div>
+      )}
       <form
         onSubmit={handleSubmit}
         style={{
@@ -180,7 +250,10 @@ function Payment({ trial }) {
                     style={
                       paymentMethod === method ? selectedStyle : optionStyle
                     }
-                    onClick={() => setPaymentMethod(method)}
+                    onClick={() => {
+                      setPaymentMethod(method);
+                      toast.info(`Selected payment method: ${method === "card" ? "Card" : "UPI"}`);
+                    }}
                   >
                     {method === "card" ? "Card" : "UPI"}
                   </div>
@@ -243,6 +316,17 @@ function Payment({ trial }) {
                 />
               </label>
             )}
+            <div style={{ marginTop: "15px" }}>
+              <p
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                  color: "#333",
+                }}
+              >
+                Total Amount: ₹{paymentDetails.amount}
+              </p>
+            </div>
           </>
         )}
         <button

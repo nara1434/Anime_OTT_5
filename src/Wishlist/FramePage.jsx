@@ -44,7 +44,6 @@ import { useNavigate } from "react-router-dom";
         <button
           onClick={handleWishlist}
           style={{ ...styles.button, backgroundColor: "#ff4d6d" }}
-          onMouseEnter={(e) => (e.target.innerText = "💖 Added!")}
           onMouseLeave={(e) => (e.target.innerText = "❤️ Wishlist")}
         >
           ❤️ Wishlist
